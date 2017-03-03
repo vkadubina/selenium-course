@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
 /**
- * Created by kotenok on 21/02/17.
+ * @author Victoria Kadubina
  */
 public class MyFirstTest {
     private WebDriver driver;

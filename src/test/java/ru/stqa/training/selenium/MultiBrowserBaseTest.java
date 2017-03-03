@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * Created by kotenok on 26/02/2017.
+ * @author Victoria Kadubina
  */
 abstract public class MultiBrowserBaseTest {
 

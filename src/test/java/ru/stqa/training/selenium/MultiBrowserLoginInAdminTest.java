@@ -16,7 +16,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 /**
- * Created by kotenok on 26/02/2017.
+ * @author Victoria Kadubina
  */
 @RunWith(Parameterized.class)
 public class MultiBrowserLoginInAdminTest extends MultiBrowserBaseTest {

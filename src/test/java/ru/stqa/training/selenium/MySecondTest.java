@@ -16,7 +16,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 
 /**
- * Created by kotenok on 22/02/17.
+ * @author Victoria Kadubina
  */
 public class MySecondTest {
     private WebDriver driver;

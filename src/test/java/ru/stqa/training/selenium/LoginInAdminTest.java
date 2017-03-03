@@ -18,7 +18,7 @@ import static junit.framework.TestCase.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 /**
- * Created by vkadubina on 2/23/2017.
+ * @author Victoria Kadubina
  */
 public class LoginInAdminTest {
     private WebDriver driver;

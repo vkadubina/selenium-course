@@ -14,9 +14,8 @@ import static junit.framework.TestCase.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
 
 /**
- * Created by kotenok on 03/03/2017.
+ * @author Victoria Kadubina
  */
-
 @RunWith(Parameterized.class)
 public class EachItemHasOneStickerTest extends MultiBrowserBaseTest{
 
