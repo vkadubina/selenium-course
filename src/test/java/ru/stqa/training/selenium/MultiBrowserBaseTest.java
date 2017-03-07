@@ -92,12 +92,14 @@ abstract public class MultiBrowserBaseTest {
         FirefoxBinary bin = new FirefoxBinary(new File("/Applications/Firefox45.app/Contents/MacOS/firefox"));
         driver = new FirefoxDriver(bin, new FirefoxProfile(),caps);
         wait = new WebDriverWait(driver, 10);
+
     }
 
     private void initFFNightlyDriver() {
         FirefoxBinary bin = new FirefoxBinary(new File("/Applications/FirefoxNightly.app/Contents/MacOS/firefox"));
         driver = new FirefoxDriver(bin, new FirefoxProfile());
         wait = new WebDriverWait(driver, 10);
+
     }
 
 
