@@ -17,7 +17,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
 

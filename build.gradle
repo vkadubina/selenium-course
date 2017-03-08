@@ -13,6 +13,7 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     testCompile 'org.seleniumhq.selenium:selenium-java:3.1.0'
+    testCompile 'io.codearte.jfairy:jfairy:0.5.6'
 }
 
 test {
