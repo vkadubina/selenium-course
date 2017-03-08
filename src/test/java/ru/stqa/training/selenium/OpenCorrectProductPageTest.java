@@ -23,6 +23,13 @@ public class OpenCorrectProductPageTest extends MultiBrowserBaseTest{
         super(browser);
     }
 
+    @Parameterized.Parameters
+    public static Collection<Object> data() {
+        return Arrays.asList(new Object[]{
+                "ie"
+        });
+    }
+
     @Test
     public void clickOnProductInCampaignsOpenCorrectPage(){
         driver.get(url);

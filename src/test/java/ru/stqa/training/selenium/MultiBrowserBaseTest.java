@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -62,10 +63,14 @@ abstract public class MultiBrowserBaseTest {
             case "safari":
                 initSafariDriver();
                 break;
+            case "ie":
+                initIEDriver();
+                break;
             default:
                 throw new IllegalArgumentException("Unknown browser id " + browser);
         }
     }
+
 
 
     @After
@@ -105,6 +110,13 @@ abstract public class MultiBrowserBaseTest {
 
     private void initSafariDriver() {
         driver = new SafariDriver();
+        wait = new WebDriverWait(driver, 10);
+    }
+
+    private void initIEDriver(){
+        File file = new File("C:/IEDriverServer.exe");
+        System.setProperty("webdriver.ie.driver", file.getAbsolutePath());
+        driver = new InternetExplorerDriver();
         wait = new WebDriverWait(driver, 10);
     }
 
