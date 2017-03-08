@@ -29,8 +29,7 @@ abstract public class MultiBrowserBaseTest {
     @Parameterized.Parameters
     public static Collection<Object> data() {
         return Arrays.asList(new Object[] {
-               "chrome", "firefox", "firefox45","firefox-nightly",
-               // "safari"
+               "chrome", "firefox", "firefox45","firefox-nightly", "safari"
         });
     }
 
