@@ -37,25 +37,29 @@ public class NewUserRegistrationTest extends MultiBrowserBaseTest{
         wait.until(urlToBe("http://localhost:8080/en/create_account"));
         Person person = FAIRY.person();
 
-        driver.findElement(By.cssSelector("input [name=firstname]")).sendKeys(person.getFirstName());
-        driver.findElement(By.cssSelector("input [name=lastname]")).sendKeys(person.getLastName());
-        driver.findElement(By.cssSelector("input [name=address1]")).sendKeys(person.getAddress().getAddressLine1());
-        driver.findElement(By.cssSelector("input [name=postcode]")).sendKeys(person.getAddress().getPostalCode());
-        driver.findElement(By.cssSelector("input [name=city]")).sendKeys(person.getAddress().getCity());
 
-        Select selectCountry = new Select(driver.findElement(By.cssSelector("select [name=country_code]")));
+        driver.findElement(By.cssSelector("input[name=firstname]")).sendKeys(person.getFirstName());
+        driver.findElement(By.cssSelector("input[name=lastname]")).sendKeys(person.getLastName());
+        driver.findElement(By.cssSelector("input[name=address1]")).sendKeys(person.getAddress().getAddressLine1());
+        driver.findElement(By.cssSelector("input[name=postcode]")).sendKeys(person.getAddress().getPostalCode());
+        driver.findElement(By.cssSelector("input[name=city]")).sendKeys(person.getAddress().getCity());
+
+        Select selectCountry = new Select(driver.findElement(By.cssSelector("select[name=country_code]")));
         selectCountry.selectByVisibleText("United States");
-        Select selectZone = new Select(driver.findElement(By.cssSelector("select [name=zone_code]")));
-        int zonesCount = selectZone.getAllSelectedOptions().size();
+        Select selectZone = new Select(driver.findElement(By.cssSelector("select[name=zone_code]")));
+        int zonesCount = selectZone.getOptions().size();
+        // FF Nightly hack
+        if(zonesCount == 0)
+            zonesCount = 1;
         Random random = new Random();
-        selectZone.selectByIndex(random.nextInt(zonesCount));
+        selectZone.selectByIndex(Math.abs(random.nextInt()) % zonesCount);
 
-        driver.findElement(By.cssSelector("input [name=email]")).sendKeys(person.getEmail());
-        driver.findElement(By.cssSelector("input [name=phone]")).sendKeys(person.getTelephoneNumber());
-        driver.findElement(By.cssSelector("input [name=password]")).sendKeys(person.getPassword());
-        driver.findElement(By.cssSelector("input [name=confirmed_password]")).sendKeys(person.getPassword());
+        driver.findElement(By.cssSelector("input[name=email]")).sendKeys(person.getEmail());
+        driver.findElement(By.cssSelector("input[name=phone]")).sendKeys(person.getTelephoneNumber());
+        driver.findElement(By.cssSelector("input[name=password]")).sendKeys(person.getPassword());
+        driver.findElement(By.cssSelector("input[name=confirmed_password]")).sendKeys(person.getPassword());
 
-        driver.findElement(By.cssSelector("button [name=create_account]")).click();
+        driver.findElement(By.cssSelector("button[name=create_account]")).click();
 
     }
 
