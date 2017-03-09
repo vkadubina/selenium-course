@@ -45,6 +45,7 @@ public class NewUserRegistrationTest extends MultiBrowserBaseTest{
         registration();
         logout();
         login();
+        logout();
 
     }
 
