@@ -17,6 +17,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
 
@@ -27,9 +29,8 @@ abstract public class MultiBrowserBaseTest {
 
     @Parameterized.Parameters
     public static Collection<Object> data() {
-        return Arrays.asList(new Object[] {
-               "chrome", "firefox", "firefox45","firefox-nightly", "safari"
-        });
+        return Stream.of("chrome", "firefox", "firefox45","firefox-nightly", "safari")
+                .collect(Collectors.toList());
     }
 
     private String browser;
