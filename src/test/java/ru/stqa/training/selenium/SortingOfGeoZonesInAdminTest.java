@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import static junit.framework.TestCase.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlContains;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
+import static ru.stqa.training.selenium.AdminPageHelper.loginInAdmin;
 
 /**
  * @author Victoria Kadubina

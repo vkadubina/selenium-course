@@ -119,14 +119,5 @@ abstract public class MultiBrowserBaseTest {
         wait = new WebDriverWait(driver, 10);
     }
 
-    public void loginInAdmin(WebDriver driver, String url){
-        if (driver != null) {
-            driver.get(url);
-            driver.findElement(By.name("username")).clear();
-            driver.findElement(By.name("username")).sendKeys("admin");
-            driver.findElement(By.name("password")).sendKeys("not-so-secret-password");
-            driver.findElement(By.name("login")).click();
-            wait.until(urlToBe(url));
-        }
-    }
+
 }

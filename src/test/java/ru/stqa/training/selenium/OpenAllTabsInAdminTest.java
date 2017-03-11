@@ -8,8 +8,8 @@ import org.openqa.selenium.By;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
 
 /**
