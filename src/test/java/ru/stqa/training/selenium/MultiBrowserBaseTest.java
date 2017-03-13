@@ -2,6 +2,7 @@ package ru.stqa.training.selenium;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,7 +17,6 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -26,6 +26,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
 /**
  * @author Victoria Kadubina
  */
+@RunWith(Parameterized.class)
 abstract public class MultiBrowserBaseTest {
 
     @Parameterized.Parameters

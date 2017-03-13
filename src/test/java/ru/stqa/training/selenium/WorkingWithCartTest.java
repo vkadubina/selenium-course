@@ -1,8 +1,6 @@
 package ru.stqa.training.selenium;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,7 +15,6 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
 /**
  * @author Victoria Kadubina
  */
-@RunWith(Parameterized.class)
 public class WorkingWithCartTest extends MultiBrowserBaseTest {
 
     private static final String CLIENT_URL = "http://localhost:8080/en/";

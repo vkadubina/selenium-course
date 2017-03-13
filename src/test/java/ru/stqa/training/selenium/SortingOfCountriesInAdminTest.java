@@ -1,19 +1,15 @@
 package ru.stqa.training.selenium;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
-import static ru.stqa.training.selenium.AdminPageHelper.loginInAdmin;
 
 /**
  * @author Victoria Kadubina
  */
-@RunWith(Parameterized.class)
 public class SortingOfCountriesInAdminTest extends MultiBrowserBaseTest{
 
 

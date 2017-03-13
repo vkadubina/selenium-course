@@ -4,8 +4,6 @@ import io.codearte.jfairy.Fairy;
 import io.codearte.jfairy.producer.person.Person;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,14 +11,12 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.Random;
 
-import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
 
 /**
  * @author Victoria Kadubina
  */
-@RunWith(Parameterized.class)
 public class NewUserRegistrationTest extends MultiBrowserBaseTest{
 
     private static final Fairy FAIRY = Fairy.create();

@@ -1,8 +1,6 @@
 package ru.stqa.training.selenium;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,12 +12,10 @@ import java.util.List;
 
 import static org.junit.Assert.fail;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlContains;
-import static ru.stqa.training.selenium.AdminPageHelper.*;
 
 /**
  * @author Victoria Kadubina
  */
-@RunWith(Parameterized.class)
 public class AddNewProductTest extends MultiBrowserBaseTest{
 
     private static final String ADMIN_URL = "http://localhost:8080/admin/?app=catalog&doc=catalog";

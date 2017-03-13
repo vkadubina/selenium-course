@@ -1,8 +1,6 @@
 package ru.stqa.training.selenium;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -16,9 +14,8 @@ import static junit.framework.TestCase.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlContains;
 
 /**
- * Created by vkadubina on 3/8/2017.
+ * @author Victoria Kadubina
  */
-@RunWith(Parameterized.class)
 public class OpenProductPageTest extends MultiBrowserBaseTest {
 
     private static final Color RED = new Color(204, 0, 0);

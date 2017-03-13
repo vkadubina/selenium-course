@@ -1,15 +1,7 @@
 package ru.stqa.training.selenium;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
@@ -18,7 +10,6 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 /**
  * @author Victoria Kadubina
  */
-@RunWith(Parameterized.class)
 public class MultiBrowserLoginInAdminTest extends MultiBrowserBaseTest {
 
     public MultiBrowserLoginInAdminTest(String browser) {
