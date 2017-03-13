@@ -43,7 +43,6 @@ abstract public class MultiBrowserBaseTest {
         this.browser = browser;
     }
 
-
     protected WebDriver driver;
     protected WebDriverWait wait;
 

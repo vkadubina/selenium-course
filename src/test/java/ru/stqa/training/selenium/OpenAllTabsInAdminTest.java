@@ -8,9 +8,10 @@ import org.openqa.selenium.By;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
+import static ru.stqa.training.selenium.AdminPageHelper.assertUrlChanged;
+import static ru.stqa.training.selenium.AdminPageHelper.assertUrlNotChanged;
 
 /**
  * @author Victoria Kadubina
@@ -44,36 +45,27 @@ public class OpenAllTabsInAdminTest extends MultiBrowserBaseTest {
 
             String cssSelector = "ul#box-apps-menu > li:nth-child(" + i + ")";
             driver.findElement(By.cssSelector(cssSelector)).click();
-            assertUrlChanged(currentUrl);
+            assertUrlChanged(driver,currentUrl);
             currentUrl = driver.getCurrentUrl();
             assertPageHeaderExists();
 
             for (int j = 1; j < getSubcategoriesQty(cssSelector) + 1; j++) {
                 driver.findElement(By.cssSelector(cssSelector + " li:nth-child(" + j + ")")).click();
                 if(j != 1) {
-                    assertUrlChanged(currentUrl);
+                    assertUrlChanged(driver,currentUrl);
                     currentUrl = driver.getCurrentUrl();
                 } else {
-                    assertUrlNotChanged(currentUrl);
+                    assertUrlNotChanged(driver,currentUrl);
                 }
                 assertPageHeaderExists();
             }
 
         }
 
-
     }
 
     private int getSubcategoriesQty(String cssSelector) {
         return driver.findElements(By.cssSelector(cssSelector + " li")).size();
-    }
-
-    private void assertUrlNotChanged(String oldUrl) {
-        assertTrue(driver.getCurrentUrl().equals(oldUrl));
-    }
-
-    private void assertUrlChanged(String oldUrl) {
-        assertFalse(driver.getCurrentUrl().equals(oldUrl));
     }
 
     private void assertPageHeaderExists() {

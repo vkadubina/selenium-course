@@ -9,6 +9,7 @@ import java.util.List;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
 
 /**
@@ -45,7 +46,7 @@ public class AdminPageHelper {
         throw new IllegalArgumentException("Section not found");
     }
     public static void assertUrlNotChanged(WebDriver driver, String oldUrl) {
-        assertTrue(driver.getCurrentUrl().equals(oldUrl));
+        assertEquals(oldUrl,driver.getCurrentUrl());
     }
 
     public static void assertUrlChanged(WebDriver driver, String oldUrl) {

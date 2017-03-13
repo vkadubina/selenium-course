@@ -24,7 +24,6 @@ public class LoginInAdminTest {
     private WebDriver driver;
     private WebDriverWait wait;
 
-
     private void initChormeDriver() {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 10);

@@ -21,21 +21,6 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 @RunWith(Parameterized.class)
 public class MultiBrowserLoginInAdminTest extends MultiBrowserBaseTest {
 
-    /*@Parameterized.Parameters
-    public static Collection<Object> localData() {
-        List<String> colors = Arrays.asList("red", "green", "blue");
-        return data().stream().flatMap(
-                browser -> colors.stream().map(color -> new Object[] {browser, color})
-        ).collect(Collectors.toList());
-    }*/
-
-    /*@Parameterized.Parameters
-    public static Collection<Object> data() {
-        return Arrays.asList(new Object[] {
-                "firefox45"
-        });
-    }*/
-
     public MultiBrowserLoginInAdminTest(String browser) {
         super(browser);
     }

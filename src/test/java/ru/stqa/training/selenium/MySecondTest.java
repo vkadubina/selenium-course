@@ -38,9 +38,6 @@ public class MySecondTest {
         wait.until(urlContains("rubber-ducks-c-1/subcategory-c-2"));
     }
 
-
-
-
     @After
     public void stop() {
         driver.quit();
