@@ -23,12 +23,6 @@ public class OpenAllTabsInAdminTest extends MultiBrowserBaseTest {
     public OpenAllTabsInAdminTest(String browser) {
         super(browser);
     }
-    @Parameterized.Parameters
-    public static Collection<Object> data() {
-        return Arrays.asList(new Object[]{
-                "chrome"
-        });
-    }
 
     @Test
     public void clickAllTabsAndSubtabs() {

@@ -18,9 +18,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.toList;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
 
 /**
@@ -29,19 +31,42 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
 @RunWith(Parameterized.class)
 abstract public class MultiBrowserBaseTest {
 
-    @Parameterized.Parameters
-    public static Collection<Object> data() {
-        return Stream.of("chrome","firefox","firefox-nightly"
-                //"safari","firefox45"
-        )
-                .collect(Collectors.toList());
+    private final static String FF_NIGHTLY_WIN = "";
+    private final static String FF_NIGHTLY_MAC = "/Applications/FirefoxNightly.app/Contents/MacOS/firefox";
+    private final static String FF_45_WIN = "";
+    private final static String FF_45_MAC = "/Applications/Firefox45.app/Contents/MacOS/firefox";
 
+    private final static List<String> DEFAULT_BROWSERS = Stream.of("chrome", "firefox", "firefox-nightly").collect(toList());
+    private final static List<String> WIN_ONLY_BROWSERS = Stream.of("ie").collect(toList());
+    private final static List<String> MAC_ONLY_BROWSERS = Stream.of("safari").collect(toList());
+
+    private String ffNightly;
+    private String ff45;
+
+    @Parameterized.Parameters
+    public static Collection<String> data() {
+        if (OSValidator.isWindows()) {
+            return Stream.concat(DEFAULT_BROWSERS.stream(), WIN_ONLY_BROWSERS.stream()).collect(toList());
+        } else if (OSValidator.isMac()) {
+            return Stream.concat(DEFAULT_BROWSERS.stream(), MAC_ONLY_BROWSERS.stream()).collect(toList());
+        } else {
+            return DEFAULT_BROWSERS;
+        }
     }
 
     private String browser;
 
     public MultiBrowserBaseTest(String browser) {
         this.browser = browser;
+        if (OSValidator.isWindows()) {
+            this.ffNightly = FF_NIGHTLY_WIN;
+            this.ff45 = FF_45_WIN;
+        } else if (OSValidator.isMac()) {
+            this.ffNightly = FF_NIGHTLY_MAC;
+            this.ff45 = FF_45_MAC;
+        } else {
+            // FIXME
+        }
     }
 
     protected WebDriver driver;
@@ -98,7 +123,7 @@ abstract public class MultiBrowserBaseTest {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability(FirefoxDriver.MARIONETTE, false);
         FirefoxOptions ffo = new FirefoxOptions();
-        ffo.setBinary(new FirefoxBinary(new File("/Applications/Firefox45.app/Contents/MacOS/firefox")));
+        ffo.setBinary(new FirefoxBinary(new File(ff45)));
         ffo.setProfile(new FirefoxProfile());
         ffo.addDesiredCapabilities(caps);
         driver = new FirefoxDriver(ffo);
@@ -109,7 +134,7 @@ abstract public class MultiBrowserBaseTest {
     private void initFFNightlyDriver() {
         FirefoxOptions ffo = new FirefoxOptions();
         ffo.setProfile(new FirefoxProfile());
-        ffo.setBinary(new FirefoxBinary(new File("/Applications/FirefoxNightly.app/Contents/MacOS/firefox")));
+        ffo.setBinary(new FirefoxBinary(new File(ffNightly)));
         driver = new FirefoxDriver(ffo);
         wait = new WebDriverWait(driver, 10);
     }
