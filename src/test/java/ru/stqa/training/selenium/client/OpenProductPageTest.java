@@ -1,8 +1,9 @@
-package ru.stqa.training.selenium;
+package ru.stqa.training.selenium.client;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import ru.stqa.training.selenium.MultiBrowserBaseTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class OpenProductPageTest extends MultiBrowserBaseTest {
 
     @Test
     public void clickOnProductInCampaignsOpenCorrectPage() {
-        driver.get(url);
+        driver.get(CLIENT_APP_URL);
         assertCampaignsContainsProducts();
         WebElement productOnMainPage = driver.findElement((By.cssSelector("div#box-campaigns ul.products li:first-child")));
         ArrayList<String> mainPageProductParameters = checkProductAndCollectParams(productOnMainPage, GREY_ON_MAIN_PAGE, TITLE_ON_MAIN_PAGE);
@@ -102,8 +103,6 @@ public class OpenProductPageTest extends MultiBrowserBaseTest {
         assertTrue("Campaigns section expected to have products", campaignsProductsCount > 0);
     }
 
-    String url = "http://localhost:8080/";
-    //String url="http://192.168.99.100:8080/";
 }
 
 

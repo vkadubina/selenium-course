@@ -1,17 +1,16 @@
-package ru.stqa.training.selenium;
+package ru.stqa.training.selenium.admin;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
-
-import java.util.Arrays;
-import java.util.Collection;
+import ru.stqa.training.selenium.MultiBrowserBaseTest;
 
 import static org.junit.Assert.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
-import static ru.stqa.training.selenium.AdminPageHelper.assertUrlChanged;
-import static ru.stqa.training.selenium.AdminPageHelper.assertUrlNotChanged;
+import static ru.stqa.training.selenium.admin.AdminPageHelper.ADMIN_URL;
+import static ru.stqa.training.selenium.admin.AdminPageHelper.assertUrlChanged;
+import static ru.stqa.training.selenium.admin.AdminPageHelper.assertUrlNotChanged;
 
 /**
  * @author Victoria Kadubina
@@ -26,14 +25,14 @@ public class OpenAllTabsInAdminTest extends MultiBrowserBaseTest {
 
     @Test
     public void clickAllTabsAndSubtabs() {
-        driver.get(adminUrl);
+        driver.get(ADMIN_URL);
         driver.findElement(By.name("username")).clear();
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("not-so-secret-password");
         driver.findElement(By.name("login")).click();
-        wait.until(urlToBe(adminUrl));
+        wait.until(urlToBe(ADMIN_URL));
 
-        String currentUrl = adminUrl;
+        String currentUrl = ADMIN_URL;
         int categoriesCount = driver.findElements(By.cssSelector("ul#box-apps-menu > li")).size();
         for (int i = 1; i <= categoriesCount; i++) {
 
@@ -66,5 +65,4 @@ public class OpenAllTabsInAdminTest extends MultiBrowserBaseTest {
         assertTrue(driver.findElements(By.cssSelector("td#content > h1")).size() > 0);
     }
 
-    private String adminUrl = "http://localhost:8080/admin/";
 }

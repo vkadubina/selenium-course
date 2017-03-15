@@ -1,8 +1,9 @@
-package ru.stqa.training.selenium;
+package ru.stqa.training.selenium.client;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import ru.stqa.training.selenium.MultiBrowserBaseTest;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +13,7 @@ import static junit.framework.TestCase.assertTrue;
 /**
  * @author Victoria Kadubina
  */
-public class EachItemHasOneStickerTest extends MultiBrowserBaseTest{
+public class EachItemHasOneStickerTest extends MultiBrowserBaseTest {
 
 
     public EachItemHasOneStickerTest(String browser) {
@@ -21,7 +22,7 @@ public class EachItemHasOneStickerTest extends MultiBrowserBaseTest{
 
     @Test
     public void eachItemHasOneSticker(){
-        driver.get(clientAppUrl);
+        driver.get(CLIENT_APP_URL);
         List<WebElement> productLists =  driver.findElements(By.cssSelector("ul.listing-wrapper.products"));
         for (WebElement listOfProducts : productLists) {
             for (int i = 1; i < listOfProducts.findElements(By.cssSelector("li.product")).size() + 1; i++) {
@@ -35,6 +36,5 @@ public class EachItemHasOneStickerTest extends MultiBrowserBaseTest{
         }
     }
 
-    private String clientAppUrl = "http://localhost:8080";
 }
 

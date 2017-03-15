@@ -1,4 +1,4 @@
-package ru.stqa.training.selenium;
+package ru.stqa.training.selenium.client;
 
 import io.codearte.jfairy.Fairy;
 import io.codearte.jfairy.producer.person.Person;
@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import ru.stqa.training.selenium.MultiBrowserBaseTest;
 
 import java.util.Random;
 
@@ -17,12 +18,11 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
 /**
  * @author Victoria Kadubina
  */
-public class NewUserRegistrationTest extends MultiBrowserBaseTest{
+public class NewUserRegistrationTest extends MultiBrowserBaseTest {
 
     private static final Fairy FAIRY = Fairy.create();
     private static final Random RANDOM = new Random();
     private Person person;
-    private String url = "http://localhost:8080/";
 
 
     @Before
@@ -37,7 +37,7 @@ public class NewUserRegistrationTest extends MultiBrowserBaseTest{
 
     @Test
     public void newUserRegistrationAndLoginTest(){
-        driver.get(url);
+        driver.get(CLIENT_APP_URL);
         registration();
         logout();
         login();

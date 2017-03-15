@@ -1,13 +1,14 @@
-package ru.stqa.training.selenium;
+package ru.stqa.training.selenium.admin;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-import static junit.framework.Assert.assertFalse;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
 
@@ -15,35 +16,28 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
  * @author Victoria Kadubina
  */
 public class AdminPageHelper {
+    public static final String ADMIN_URL = "http://localhost:8080/admin/";
 
-    public static void loginInAdmin(WebDriver driver, String url){
+    public static void loginInAdmin(WebDriver driver){
 
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        driver.get(url);
+        driver.get(ADMIN_URL);
         driver.findElement(By.name("username")).clear();
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("not-so-secret-password");
         driver.findElement(By.name("login")).click();
-        wait.until(urlToBe(url));
+        wait.until(urlToBe(ADMIN_URL));
 
     }
 
-    public static void openAdminSection(WebDriver driver, String sectionName){
-        String oldUrl = driver.getCurrentUrl();
-        List<WebElement> adminSectionsList = driver.findElements(By.cssSelector("ul#box-apps-menu li"));
-        for (WebElement we:adminSectionsList) {
-            String text = we.findElement(By.cssSelector("span.name")).getText();
-            if (text.equals(sectionName)){
-                if (!we.getAttribute("className").equals("selected")) {
-                    we.findElement(By.cssSelector("a")).click();
-                    assertUrlChanged(driver,oldUrl);
-                }
+    public static void openAdminSection(WebDriver driver, WebDriverWait wait, String sectionName) {
 
-            }
-
+        String xpath = "//span[.='" + sectionName + "']/..";
+        driver.findElement(By.xpath(xpath)).click();
+        String titleText = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("td#content h1"))).getText().trim();
+        assertEquals(sectionName, titleText);
         }
-        throw new IllegalArgumentException("Section not found");
-    }
+
     public static void assertUrlNotChanged(WebDriver driver, String oldUrl) {
         assertEquals(oldUrl,driver.getCurrentUrl());
     }

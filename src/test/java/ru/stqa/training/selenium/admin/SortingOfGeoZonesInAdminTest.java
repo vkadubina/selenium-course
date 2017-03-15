@@ -1,12 +1,15 @@
-package ru.stqa.training.selenium;
+package ru.stqa.training.selenium.admin;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import ru.stqa.training.selenium.MultiBrowserBaseTest;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlContains;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
+import static ru.stqa.training.selenium.admin.AdminPageHelper.loginInAdmin;
+import static ru.stqa.training.selenium.admin.AdminPageHelper.openAdminSection;
 
 /**
  * @author Victoria Kadubina
@@ -18,17 +21,19 @@ public class SortingOfGeoZonesInAdminTest extends MultiBrowserBaseTest {
 
     @Test
     public void isAllGeoZonesSorted() {
-        loginInAdmin(driver, adminUrl);
+        loginInAdmin(driver);
+        openAdminSection(driver,wait,"Geo Zones");
         int zonesCount = driver.findElements(By.cssSelector("tr.row")).size();
 
         for (int i = 0; i < zonesCount; i++) {
+            String currentUrl = driver.getCurrentUrl();
             WebElement row = driver.findElement(By.cssSelector("table.dataTable tr:nth-child(" + (i + 2) + ")"));
             row.findElement(By.cssSelector("td:nth-child(3) a")).click();
             wait.until(urlContains("geo_zone_id"));
 
             assertGeoZonesAreSorted();
             driver.navigate().back();
-            wait.until(urlToBe(adminUrl));
+            wait.until(urlToBe(currentUrl));
         }
     }
 
@@ -47,5 +52,4 @@ public class SortingOfGeoZonesInAdminTest extends MultiBrowserBaseTest {
 
     }
 
-    private String adminUrl = "http://localhost:8080/admin/?app=geo_zones&doc=geo_zones";
 }

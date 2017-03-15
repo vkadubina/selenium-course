@@ -1,16 +1,19 @@
-package ru.stqa.training.selenium;
+package ru.stqa.training.selenium.admin;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import ru.stqa.training.selenium.MultiBrowserBaseTest;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
+import static ru.stqa.training.selenium.admin.AdminPageHelper.loginInAdmin;
+import static ru.stqa.training.selenium.admin.AdminPageHelper.openAdminSection;
 
 /**
  * @author Victoria Kadubina
  */
-public class SortingOfCountriesInAdminTest extends MultiBrowserBaseTest{
+public class SortingOfCountriesInAdminTest extends MultiBrowserBaseTest {
 
 
     public SortingOfCountriesInAdminTest(String browser) {
@@ -19,7 +22,8 @@ public class SortingOfCountriesInAdminTest extends MultiBrowserBaseTest{
 
     @Test
     public void isAllCountriesSorted() {
-        loginInAdmin(driver,adminUrl);
+        loginInAdmin(driver);
+        openAdminSection(driver,wait,"Countries");
 
         int countriesCount = driver.findElements(By.cssSelector("tr.row")).size();
         String prevCountryName = "";
@@ -41,7 +45,9 @@ public class SortingOfCountriesInAdminTest extends MultiBrowserBaseTest{
     private void checkZones(WebElement row) {
         WebElement country = row.findElement(By.cssSelector("td:nth-child(5)"));
         int zonesCount = Integer.parseInt(row.findElement(By.cssSelector("td:nth-child(6)")).getAttribute("innerText"));
+
         if (zonesCount > 0) {
+            String currentUrl = driver.getCurrentUrl();
             String countryURL = "http://localhost:8080/admin/?app=countries&doc=edit_country&country_code=" +
                     row.findElement(By.cssSelector("td:nth-child(4)")).getAttribute("innerText");
             country.findElement(By.cssSelector("a")).click();
@@ -58,9 +64,8 @@ public class SortingOfCountriesInAdminTest extends MultiBrowserBaseTest{
                 prevZone = currentZone;
             }
             driver.navigate().back();
-            wait.until(urlToBe(adminUrl));
+            wait.until(urlToBe(currentUrl));
         }
     }
 
-    private String adminUrl = "http://localhost:8080/admin/?app=countries&doc=countries";
 }

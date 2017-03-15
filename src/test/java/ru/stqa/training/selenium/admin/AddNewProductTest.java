@@ -1,4 +1,4 @@
-package ru.stqa.training.selenium;
+package ru.stqa.training.selenium.admin;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -6,27 +6,31 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import ru.stqa.training.selenium.MultiBrowserBaseTest;
 
 import java.io.File;
 import java.util.List;
 
 import static org.junit.Assert.fail;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlContains;
+import static ru.stqa.training.selenium.admin.AdminPageHelper.loginInAdmin;
+import static ru.stqa.training.selenium.admin.AdminPageHelper.openAdminSection;
 
 /**
  * @author Victoria Kadubina
  */
-public class AddNewProductTest extends MultiBrowserBaseTest{
+public class AddNewProductTest extends MultiBrowserBaseTest {
 
-    private static final String ADMIN_URL = "http://localhost:8080/admin/?app=catalog&doc=catalog";
+    //private static final String ADMIN_URL = "http://localhost:8080/admin/?app=catalog&doc=catalog";
 
     public AddNewProductTest(String browser) {
         super(browser);
     }
 
     @Test
-    public void addNewProductTest(){
-        loginInAdmin(driver, ADMIN_URL);
+    public void addNewProductTest() {
+        loginInAdmin(driver);
+        openAdminSection(driver,wait,"Catalog");
         String productName = "Bayern Duck " + System.currentTimeMillis();
 
         driver.findElement(By.cssSelector("div a.button:nth-child(2)")).click();
@@ -106,4 +110,5 @@ public class AddNewProductTest extends MultiBrowserBaseTest{
             " Maecenas sit amet arcu pulvinar, facilisis quam at, viverra nisi." +
             " Morbi sit amet adipiscing ante. Integer imperdiet volutpat ante, sed venenatis urna volutpat a." +
             " Proin justo massa, convallis vitae consectetur sit amet, facilisis id libero.";
+
 }

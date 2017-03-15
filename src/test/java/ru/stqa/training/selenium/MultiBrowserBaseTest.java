@@ -4,7 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxBinary;
@@ -19,11 +18,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
-import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
 
 /**
  * @author Victoria Kadubina
@@ -39,11 +36,15 @@ abstract public class MultiBrowserBaseTest {
     private final static List<String> DEFAULT_BROWSERS = Stream.of("chrome", "firefox", "firefox-nightly").collect(toList());
     private final static List<String> WIN_ONLY_BROWSERS = Stream.of("ie").collect(toList());
     private final static List<String> MAC_ONLY_BROWSERS = Stream.of("safari").collect(toList());
+    protected final static String CLIENT_APP_URL = "http://localhost:8080";
+    //String url="http://192.168.99.100:8080/";
+
+
 
     private String ffNightly;
     private String ff45;
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "{0}")
     public static Collection<String> data() {
         if (OSValidator.isWindows()) {
             return Stream.concat(DEFAULT_BROWSERS.stream(), WIN_ONLY_BROWSERS.stream()).collect(toList());
@@ -152,14 +153,4 @@ abstract public class MultiBrowserBaseTest {
         wait = new WebDriverWait(driver, 10);
     }
 
-    public void loginInAdmin(WebDriver driver, String url){
-        if (driver != null) {
-            driver.get(url);
-            driver.findElement(By.name("username")).clear();
-            driver.findElement(By.name("username")).sendKeys("admin");
-            driver.findElement(By.name("password")).sendKeys("not-so-secret-password");
-            driver.findElement(By.name("login")).click();
-            wait.until(urlToBe(url));
-        }
-    }
 }

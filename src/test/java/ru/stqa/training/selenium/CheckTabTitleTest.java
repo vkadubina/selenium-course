@@ -13,28 +13,18 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 /**
  * @author Victoria Kadubina
  */
-public class MyFirstTest {
-    private WebDriver driver;
-    private WebDriverWait wait;
+public class CheckTabTitleTest extends MultiBrowserBaseTest{
 
-    @Before
-    public void start() {
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, 10);
+    public CheckTabTitleTest(String browser) {
+        super(browser);
     }
 
     @Test
-    public void myFirstTest() {
+    public void checkGoogleSearchTabTitleTest() {
         driver.get("https://www.google.com/");
         driver.findElement(By.name("q")).sendKeys("webdriver");
         driver.findElement(By.name("btnG")).click();
         wait.until(titleIs("webdriver - Google Search"));
     }
 
-
-    @After
-    public void stop() {
-        driver.quit();
-        driver = null;
-    }
 }

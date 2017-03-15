@@ -1,10 +1,11 @@
-package ru.stqa.training.selenium;
+package ru.stqa.training.selenium.client;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import ru.stqa.training.selenium.MultiBrowserBaseTest;
 
 import java.util.List;
 import java.util.Random;
@@ -17,7 +18,6 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
  */
 public class WorkingWithCartTest extends MultiBrowserBaseTest {
 
-    private static final String CLIENT_URL = "http://localhost:8080/en/";
     private static final Random RANDOM = new Random();
 
     public WorkingWithCartTest(String browser) {
@@ -27,7 +27,7 @@ public class WorkingWithCartTest extends MultiBrowserBaseTest {
     @Test
     public void workingWithCartTest() {
 
-        driver.get(CLIENT_URL);
+        driver.get(CLIENT_APP_URL);
         addRandomProductsToCart(3);
         goToCheckoutPage();
         deleteAllProductsOneByOne();
@@ -59,7 +59,7 @@ public class WorkingWithCartTest extends MultiBrowserBaseTest {
 
     private void goToMainPage() {
         driver.findElement(By.cssSelector("nav#site-menu li.general-0 a")).click();
-        wait.until(urlToBe(CLIENT_URL));
+        wait.until(urlToBe(CLIENT_APP_URL));
     }
 
     private void openRandomProductPage() {
