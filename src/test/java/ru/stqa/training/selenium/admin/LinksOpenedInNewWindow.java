@@ -26,7 +26,7 @@ public class LinksOpenedInNewWindow extends MultiBrowserBaseTest{
     @Test
     public void testLinksAreOpenedInNewWindow(){
         loginInAdmin(driver);
-        openAdminSection(driver,wait,"Countries");
+        openAdminSection(driver, wait, "Countries");
         clickAddNewCountryButton();
         openAllExternalLinks(findAllExternalLinks());
 
@@ -37,7 +37,7 @@ public class LinksOpenedInNewWindow extends MultiBrowserBaseTest{
         Set<String> oldWindows = driver.getWindowHandles();
         for (WebElement link: allExternalLinks){
             link.click();
-            WebDriver.Window newWindow = wait.until(thereIsWindowOtherThan(oldWindows));
+            String newWindow = wait.until(d -> thereIsWindowOtherThan(oldWindows));
 
             driver.switchTo().window(newWindow);
             driver.close();
@@ -47,14 +47,13 @@ public class LinksOpenedInNewWindow extends MultiBrowserBaseTest{
 
     }
 
-    //FIXME
-    private ExpectedCondition<Boolean> thereIsWindowOtherThan(final Set<String> oldWindows) {
+    private String thereIsWindowOtherThan(final Set<String> oldWindows) {
 
-        return driver1 -> {
-            Set<String> newWindows = driver1.getWindowHandles();
-            newWindows.removeAll(oldWindows);
-            return newWindows.size() > 0 ? true : false;
-        };
+        Set<String> newWindows = driver.getWindowHandles();
+        newWindows.removeAll(oldWindows);
+
+        return newWindows.stream().findFirst().orElse(null);
+
     }
 
     private List<WebElement> findAllExternalLinks() {

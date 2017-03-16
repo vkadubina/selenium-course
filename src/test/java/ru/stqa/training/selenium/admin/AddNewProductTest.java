@@ -30,7 +30,7 @@ public class AddNewProductTest extends MultiBrowserBaseTest {
     @Test
     public void addNewProductTest() {
         loginInAdmin(driver);
-        openAdminSection(driver,wait,"Catalog");
+        openAdminSection(driver, wait, "Catalog");
         String productName = "Bayern Duck " + System.currentTimeMillis();
 
         driver.findElement(By.cssSelector("div a.button:nth-child(2)")).click();
