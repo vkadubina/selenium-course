@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.training.selenium.MultiBrowserBaseTest;
+import ru.stqa.training.selenium.SeleniumBrowser;
 
 import java.util.List;
 import java.util.Random;
@@ -20,18 +21,17 @@ public class WorkingWithCartTest extends MultiBrowserBaseTest {
 
     private static final Random RANDOM = new Random();
 
-    public WorkingWithCartTest(String browser) {
+    public WorkingWithCartTest(SeleniumBrowser browser) {
         super(browser);
     }
 
     @Test
     public void workingWithCartTest() {
 
-        driver.get(CLIENT_APP_URL);
+        driver.get(clientUrl);
         addRandomProductsToCart(3);
         goToCheckoutPage();
         deleteAllProductsOneByOne();
-
     }
 
     private void addRandomProductsToCart(int amount) {
@@ -59,7 +59,7 @@ public class WorkingWithCartTest extends MultiBrowserBaseTest {
 
     private void goToMainPage() {
         driver.findElement(By.cssSelector("nav#site-menu li.general-0 a")).click();
-        wait.until(urlToBe(CLIENT_APP_URL));
+        wait.until(urlToBe(clientUrl));
     }
 
     private void openRandomProductPage() {
@@ -91,7 +91,6 @@ public class WorkingWithCartTest extends MultiBrowserBaseTest {
         wait.until(ExpectedConditions.stalenessOf(productsTable));
         String noItemsInCartText = driver.findElement(By.cssSelector("div#checkout-cart-wrapper em")).getText();
         assertTrue(noItemsInCartText.equals("There are no items in your cart."));
-
     }
 
     private void waitAndClickRemoveButton() {

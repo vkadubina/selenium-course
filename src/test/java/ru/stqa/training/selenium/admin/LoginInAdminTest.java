@@ -3,6 +3,7 @@ package ru.stqa.training.selenium.admin;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import ru.stqa.training.selenium.MultiBrowserBaseTest;
+import ru.stqa.training.selenium.SeleniumBrowser;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
@@ -13,7 +14,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
  */
 public class LoginInAdminTest extends MultiBrowserBaseTest {
 
-        public LoginInAdminTest(String browser) {
+        public LoginInAdminTest(SeleniumBrowser browser) {
             super(browser);
         }
 
@@ -40,7 +41,5 @@ public class LoginInAdminTest extends MultiBrowserBaseTest {
             wait.until(visibilityOfElementLocated(By.className("errors")));
             assertTrue(driver.getCurrentUrl().contains("login.php"));
         }
-
-        private String adminUrl = "http://localhost:8080/admin/";
     }
 

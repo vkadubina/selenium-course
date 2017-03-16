@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.training.selenium.MultiBrowserBaseTest;
+import ru.stqa.training.selenium.SeleniumBrowser;
 
 import java.io.File;
 import java.util.List;
@@ -21,9 +22,7 @@ import static ru.stqa.training.selenium.admin.AdminPageHelper.openAdminSection;
  */
 public class AddNewProductTest extends MultiBrowserBaseTest {
 
-    //private static final String ADMIN_URL = "http://localhost:8080/admin/?app=catalog&doc=catalog";
-
-    public AddNewProductTest(String browser) {
+    public AddNewProductTest(SeleniumBrowser browser) {
         super(browser);
     }
 
@@ -60,7 +59,6 @@ public class AddNewProductTest extends MultiBrowserBaseTest {
         driver.findElement(By.cssSelector("input[name=purchase_price")).clear();
         driver.findElement(By.cssSelector("input[name=purchase_price")).sendKeys("33");
         driver.findElement(By.cssSelector("input[name=prices\\[USD\\]")).sendKeys("35");
-
     }
 
     private void fillProductInformation() {
@@ -70,7 +68,6 @@ public class AddNewProductTest extends MultiBrowserBaseTest {
         driver.findElement(By.cssSelector("input[name=keywords]")).sendKeys("Rubber Duck");
         driver.findElement(By.cssSelector("input[name=short_description\\[en\\]]")).sendKeys("Beautiful Rubber Duck from Germany");
         driver.findElement(By.cssSelector("div.trumbowyg-editor")).sendKeys(DUCK_DESCRIPTION);
-
     }
 
     private void switchToTab(String cssSelector) {
@@ -93,11 +90,9 @@ public class AddNewProductTest extends MultiBrowserBaseTest {
         Select soldOutStateSelect = new Select(generalForm.findElement(By.cssSelector("select[name=sold_out_status_id]")));
         soldOutStateSelect.selectByValue("2");
 
-
         String imgPath = "src/test/resources/rubber_duck_img.png";
         String absolutePath = new File(imgPath).getAbsolutePath();
         generalForm.findElement(By.cssSelector("input[type=file]")).sendKeys(absolutePath);
-
     }
 
     private static final String DUCK_DESCRIPTION = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
@@ -110,5 +105,4 @@ public class AddNewProductTest extends MultiBrowserBaseTest {
             " Maecenas sit amet arcu pulvinar, facilisis quam at, viverra nisi." +
             " Morbi sit amet adipiscing ante. Integer imperdiet volutpat ante, sed venenatis urna volutpat a." +
             " Proin justo massa, convallis vitae consectetur sit amet, facilisis id libero.";
-
 }

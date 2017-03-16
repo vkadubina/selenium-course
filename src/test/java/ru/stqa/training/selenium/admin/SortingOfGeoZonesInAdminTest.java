@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.stqa.training.selenium.MultiBrowserBaseTest;
+import ru.stqa.training.selenium.SeleniumBrowser;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlContains;
@@ -15,7 +16,7 @@ import static ru.stqa.training.selenium.admin.AdminPageHelper.openAdminSection;
  * @author Victoria Kadubina
  */
 public class SortingOfGeoZonesInAdminTest extends MultiBrowserBaseTest {
-    public SortingOfGeoZonesInAdminTest(String browser) {
+    public SortingOfGeoZonesInAdminTest(SeleniumBrowser browser) {
         super(browser);
     }
 
@@ -49,7 +50,5 @@ public class SortingOfGeoZonesInAdminTest extends MultiBrowserBaseTest {
             }
             prevZone = currentZone;
         }
-
     }
-
 }

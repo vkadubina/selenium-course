@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.stqa.training.selenium.MultiBrowserBaseTest;
+import ru.stqa.training.selenium.SeleniumBrowser;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
@@ -16,7 +17,7 @@ import static ru.stqa.training.selenium.admin.AdminPageHelper.openAdminSection;
 public class SortingOfCountriesInAdminTest extends MultiBrowserBaseTest {
 
 
-    public SortingOfCountriesInAdminTest(String browser) {
+    public SortingOfCountriesInAdminTest(SeleniumBrowser browser) {
         super(browser);
     }
 
@@ -39,7 +40,6 @@ public class SortingOfCountriesInAdminTest extends MultiBrowserBaseTest {
             prevCountryName = currentCountryName;
             checkZones(row);
         }
-
     }
 
     private void checkZones(WebElement row) {
@@ -67,5 +67,4 @@ public class SortingOfCountriesInAdminTest extends MultiBrowserBaseTest {
             wait.until(urlToBe(currentUrl));
         }
     }
-
 }

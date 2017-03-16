@@ -2,10 +2,9 @@ package ru.stqa.training.selenium.admin;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import ru.stqa.training.selenium.MultiBrowserBaseTest;
+import ru.stqa.training.selenium.SeleniumBrowser;
 
 import java.util.List;
 import java.util.Set;
@@ -19,7 +18,7 @@ import static ru.stqa.training.selenium.admin.AdminPageHelper.openAdminSection;
  */
 public class LinksOpenedInNewWindow extends MultiBrowserBaseTest{
 
-    public LinksOpenedInNewWindow(String browser) {
+    public LinksOpenedInNewWindow(SeleniumBrowser browser) {
         super(browser);
     }
 
@@ -29,7 +28,6 @@ public class LinksOpenedInNewWindow extends MultiBrowserBaseTest{
         openAdminSection(driver, wait, "Countries");
         clickAddNewCountryButton();
         openAllExternalLinks(findAllExternalLinks());
-
     }
 
     private void openAllExternalLinks(List<WebElement> allExternalLinks) {
@@ -42,18 +40,14 @@ public class LinksOpenedInNewWindow extends MultiBrowserBaseTest{
             driver.switchTo().window(newWindow);
             driver.close();
             driver.switchTo().window(mainWindow);
-
         }
-
     }
 
     private String thereIsWindowOtherThan(final Set<String> oldWindows) {
 
         Set<String> newWindows = driver.getWindowHandles();
         newWindows.removeAll(oldWindows);
-
         return newWindows.stream().findFirst().orElse(null);
-
     }
 
     private List<WebElement> findAllExternalLinks() {

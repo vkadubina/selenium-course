@@ -4,13 +4,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.stqa.training.selenium.MultiBrowserBaseTest;
+import ru.stqa.training.selenium.SeleniumBrowser;
 
 import static org.junit.Assert.assertTrue;
-import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
-import static ru.stqa.training.selenium.admin.AdminPageHelper.ADMIN_URL;
-import static ru.stqa.training.selenium.admin.AdminPageHelper.assertUrlChanged;
-import static ru.stqa.training.selenium.admin.AdminPageHelper.assertUrlNotChanged;
+import static ru.stqa.training.selenium.admin.AdminPageHelper.*;
 
 /**
  * @author Victoria Kadubina
@@ -19,42 +19,38 @@ import static ru.stqa.training.selenium.admin.AdminPageHelper.assertUrlNotChange
 public class OpenAllTabsInAdminTest extends MultiBrowserBaseTest {
 
 
-    public OpenAllTabsInAdminTest(String browser) {
+    public OpenAllTabsInAdminTest(SeleniumBrowser browser) {
         super(browser);
     }
 
     @Test
     public void clickAllTabsAndSubtabs() {
-        driver.get(ADMIN_URL);
-        driver.findElement(By.name("username")).clear();
-        driver.findElement(By.name("username")).sendKeys("admin");
-        driver.findElement(By.name("password")).sendKeys("not-so-secret-password");
-        driver.findElement(By.name("login")).click();
-        wait.until(urlToBe(ADMIN_URL));
+        loginInAdmin(driver);
 
-        String currentUrl = ADMIN_URL;
         int categoriesCount = driver.findElements(By.cssSelector("ul#box-apps-menu > li")).size();
+
         for (int i = 1; i <= categoriesCount; i++) {
+
+            //need to understand that the page is updated
+            WebElement logo = driver.findElement(By.cssSelector("div.logotype"));
 
             String cssSelector = "ul#box-apps-menu > li:nth-child(" + i + ")";
             driver.findElement(By.cssSelector(cssSelector)).click();
-            assertUrlChanged(driver,currentUrl);
-            currentUrl = driver.getCurrentUrl();
+            wait.until(ExpectedConditions.stalenessOf(logo));
+
             assertPageHeaderExists();
 
             for (int j = 1; j < getSubcategoriesQty(cssSelector) + 1; j++) {
+
+                //need to understand that the page is updated
+                logo = driver.findElement(By.cssSelector("div.logotype"));
+
                 driver.findElement(By.cssSelector(cssSelector + " li:nth-child(" + j + ")")).click();
-                if(j != 1) {
-                    assertUrlChanged(driver,currentUrl);
-                    currentUrl = driver.getCurrentUrl();
-                } else {
-                    assertUrlNotChanged(driver,currentUrl);
-                }
+                wait.until(ExpectedConditions.stalenessOf(logo));
+
                 assertPageHeaderExists();
             }
-
         }
-
     }
 
     private int getSubcategoriesQty(String cssSelector) {

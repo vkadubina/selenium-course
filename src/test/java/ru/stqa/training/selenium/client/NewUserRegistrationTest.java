@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.training.selenium.MultiBrowserBaseTest;
+import ru.stqa.training.selenium.SeleniumBrowser;
 
 import java.util.Random;
 
@@ -24,20 +25,19 @@ public class NewUserRegistrationTest extends MultiBrowserBaseTest {
     private static final Random RANDOM = new Random();
     private Person person;
 
-
     @Before
     public void init(){
         super.init();
         person = FAIRY.person();
     }
 
-    public NewUserRegistrationTest(String browser) {
+    public NewUserRegistrationTest(SeleniumBrowser browser) {
         super(browser);
     }
 
     @Test
     public void newUserRegistrationAndLoginTest(){
-        driver.get(CLIENT_APP_URL);
+        driver.get(clientUrl);
         registration();
         logout();
         login();
@@ -51,23 +51,19 @@ public class NewUserRegistrationTest extends MultiBrowserBaseTest {
         loginForm.findElement(By.cssSelector("input[name=email]")).sendKeys(person.getEmail());
         loginForm.findElement(By.cssSelector("input[name=password]")).sendKeys(person.getPassword());
         loginForm.findElement(By.cssSelector("button[name=login]")).click();
-
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#box-account")));
+
         WebElement notice = driver.findElement(By.cssSelector("div#notices-wrapper div.notice.success"));
-
         assertTrue(notice.getText().startsWith("You are now logged in as"));
-
     }
 
     private void logout() {
 
         driver.findElement(By.cssSelector("div#box-account li:nth-child(4) a")).click();
-
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#box-account-login")));
+
         WebElement notice = driver.findElement(By.cssSelector("div#notices-wrapper div.notice.success"));
-
         assertTrue(notice.getText().equals("You are now logged out."));
-
     }
 
     private void registration() {
@@ -95,12 +91,10 @@ public class NewUserRegistrationTest extends MultiBrowserBaseTest {
         driver.findElement(By.cssSelector("input[name=phone]")).sendKeys(person.getTelephoneNumber());
         driver.findElement(By.cssSelector("input[name=password]")).sendKeys(person.getPassword());
         driver.findElement(By.cssSelector("input[name=confirmed_password]")).sendKeys(person.getPassword());
-
         driver.findElement(By.cssSelector("button[name=create_account]")).click();
-
         WebElement notice = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div#notices-wrapper div.notice.success")));
-        assertTrue(notice.getText().equals("Your customer account has been created."));
 
+        assertTrue(notice.getText().equals("Your customer account has been created."));
     }
 }

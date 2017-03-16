@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.stqa.training.selenium.MultiBrowserBaseTest;
+import ru.stqa.training.selenium.SeleniumBrowser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +28,13 @@ public class OpenProductPageTest extends MultiBrowserBaseTest {
     private static final String TITLE_ON_PROD_PAGE = "[itemprop=name]";
 
 
-    public OpenProductPageTest(String browser) {
+    public OpenProductPageTest(SeleniumBrowser browser) {
         super(browser);
     }
 
     @Test
     public void clickOnProductInCampaignsOpenCorrectPage() {
-        driver.get(CLIENT_APP_URL);
+        driver.get(clientUrl);
         assertCampaignsContainsProducts();
         WebElement productOnMainPage = driver.findElement((By.cssSelector("div#box-campaigns ul.products li:first-child")));
         ArrayList<String> mainPageProductParameters = checkProductAndCollectParams(productOnMainPage, GREY_ON_MAIN_PAGE, TITLE_ON_MAIN_PAGE);
@@ -44,7 +45,7 @@ public class OpenProductPageTest extends MultiBrowserBaseTest {
         WebElement productOnSelfPage = driver.findElement((By.cssSelector("div#box-product")));
         ArrayList<String> selfPageProductParameters = checkProductAndCollectParams(productOnSelfPage, GREY_ON_PROD_PAGE, TITLE_ON_PROD_PAGE);
 
-        assertEquals("parameters on main and product pages should be equal",mainPageProductParameters, selfPageProductParameters);
+        assertEquals("parameters on main and product pages should be equal", mainPageProductParameters, selfPageProductParameters);
 
     }
 
@@ -56,8 +57,8 @@ public class OpenProductPageTest extends MultiBrowserBaseTest {
         WebElement regularPrice = priceWrapper.findElement(By.cssSelector(".regular-price"));
         WebElement campaignPrice = priceWrapper.findElement(By.cssSelector(".campaign-price"));
 
-        assertEquals("regular price expected to be struck out","line-through",regularPrice.getCssValue("text-decoration"));
-        assertEquals("campaign price expected to be strong","strong", campaignPrice.getTagName());
+        assertTrue("regular price expected to be struck out", regularPrice.getCssValue("text-decoration").contains("line-through"));
+        assertEquals("campaign price expected to be strong", "strong", campaignPrice.getTagName());
 
         Color regularPriceColor = getColor(regularPrice);
         String name = product.findElement(By.cssSelector(titleSelector)).getText();
@@ -103,67 +104,66 @@ public class OpenProductPageTest extends MultiBrowserBaseTest {
         assertTrue("Campaigns section expected to have products", campaignsProductsCount > 0);
     }
 
-}
 
+    static class Color {
+        private int r;
+        private int g;
+        private int b;
 
-class Color {
-    private int r;
-    private int g;
-    private int b;
+        public Color(int r, int g, int b) {
+            this.r = r;
+            this.g = g;
+            this.b = b;
+        }
 
-    public Color(int r, int g, int b) {
-        this.r = r;
-        this.g = g;
-        this.b = b;
-    }
+        public int getR() {
+            return r;
+        }
 
-    public int getR() {
-        return r;
-    }
+        public void setR(int r) {
+            this.r = r;
+        }
 
-    public void setR(int r) {
-        this.r = r;
-    }
+        public int getG() {
+            return g;
+        }
 
-    public int getG() {
-        return g;
-    }
+        public void setG(int g) {
+            this.g = g;
+        }
 
-    public void setG(int g) {
-        this.g = g;
-    }
+        public int getB() {
+            return b;
+        }
 
-    public int getB() {
-        return b;
-    }
+        public void setB(int b) {
+            this.b = b;
+        }
 
-    public void setB(int b) {
-        this.b = b;
-    }
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+            Color color = (Color) o;
 
-        Color color = (Color) o;
+            if (r != color.r) return false;
+            if (g != color.g) return false;
+            return b == color.b;
 
-        if (r != color.r) return false;
-        if (g != color.g) return false;
-        return b == color.b;
+        }
 
-    }
+        @Override
+        public int hashCode() {
+            int result = r;
+            result = 31 * result + g;
+            result = 31 * result + b;
+            return result;
+        }
 
-    @Override
-    public int hashCode() {
-        int result = r;
-        result = 31 * result + g;
-        result = 31 * result + b;
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "rgb(" + r + ", " + g + ", " + b + ")";
+        @Override
+        public String toString() {
+            return "rgb(" + r + ", " + g + ", " + b + ")";
+        }
     }
 }

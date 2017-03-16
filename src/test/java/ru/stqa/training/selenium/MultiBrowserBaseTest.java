@@ -5,19 +5,13 @@ import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxBinary;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
-import java.util.List;
+import java.util.Properties;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
@@ -28,46 +22,27 @@ import static java.util.stream.Collectors.toList;
 @RunWith(Parameterized.class)
 abstract public class MultiBrowserBaseTest {
 
-    private final static String FF_NIGHTLY_WIN = "";
-    private final static String FF_NIGHTLY_MAC = "/Applications/FirefoxNightly.app/Contents/MacOS/firefox";
-    private final static String FF_45_WIN = "";
-    private final static String FF_45_MAC = "/Applications/Firefox45.app/Contents/MacOS/firefox";
-
-    private final static List<String> DEFAULT_BROWSERS = Stream.of("chrome", "firefox", "firefox-nightly").collect(toList());
-    private final static List<String> WIN_ONLY_BROWSERS = Stream.of("ie").collect(toList());
-    private final static List<String> MAC_ONLY_BROWSERS = Stream.of("safari").collect(toList());
-    protected final static String CLIENT_APP_URL = "http://localhost:8080";
-    //String url="http://192.168.99.100:8080/";
-
-
-
-    private String ffNightly;
-    private String ff45;
-
     @Parameterized.Parameters(name = "{0}")
-    public static Collection<String> data() {
-        if (OSValidator.isWindows()) {
-            return Stream.concat(DEFAULT_BROWSERS.stream(), WIN_ONLY_BROWSERS.stream()).collect(toList());
-        } else if (OSValidator.isMac()) {
-            return Stream.concat(DEFAULT_BROWSERS.stream(), MAC_ONLY_BROWSERS.stream()).collect(toList());
-        } else {
-            return DEFAULT_BROWSERS;
-        }
+    public static Collection<SeleniumBrowser> data() {
+        OS currentOS = OS.detect();
+        return Stream.of(SeleniumBrowser.values())
+                .filter(browser -> browser.isSupported(currentOS))
+                .collect(toList());
     }
 
-    private String browser;
+    static {
+        loadTestEnvProperties();
+    }
 
-    public MultiBrowserBaseTest(String browser) {
+    protected String clientUrl;
+    protected String adminUrl;
+
+    private SeleniumBrowser browser;
+
+    public MultiBrowserBaseTest(SeleniumBrowser browser) {
         this.browser = browser;
-        if (OSValidator.isWindows()) {
-            this.ffNightly = FF_NIGHTLY_WIN;
-            this.ff45 = FF_45_WIN;
-        } else if (OSValidator.isMac()) {
-            this.ffNightly = FF_NIGHTLY_MAC;
-            this.ff45 = FF_45_MAC;
-        } else {
-            // FIXME
-        }
+        clientUrl = System.getProperty("app.client.url");
+        adminUrl = System.getProperty("app.admin.url");
     }
 
     protected WebDriver driver;
@@ -76,30 +51,9 @@ abstract public class MultiBrowserBaseTest {
 
     @Before
     public void init() {
-        switch (browser) {
-            case "chrome":
-                initChromeDriver();
-                break;
-            case "firefox":
-                initFFDriver();
-                break;
-            case "firefox45":
-                initFF45esrDriver();
-                break;
-            case "firefox-nightly":
-                initFFNightlyDriver();
-                break;
-            case "safari":
-                initSafariDriver();
-                break;
-            case "ie":
-                initIEDriver();
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown browser id " + browser);
-        }
+        driver = browser.getDriver();
+        wait = new WebDriverWait(driver, 10);
     }
-
 
 
     @After
@@ -110,47 +64,31 @@ abstract public class MultiBrowserBaseTest {
         }
     }
 
-    private void initChromeDriver() {
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, 10);
+    private static void loadTestEnvProperties() {
+        Properties props = new Properties();
+        InputStream input = null;
+
+        try {
+
+            input = new FileInputStream("src/test/resources/test_env.properties");
+
+            // load a properties file
+            props.load(input);
+
+            Properties sysProps = System.getProperties();
+            props.putAll(sysProps);
+            System.setProperties(props);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
-
-    private void initFFDriver() {
-        driver = new FirefoxDriver();
-        wait = new WebDriverWait(driver, 10);
-    }
-
-    private void initFF45esrDriver() {
-        DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setCapability(FirefoxDriver.MARIONETTE, false);
-        FirefoxOptions ffo = new FirefoxOptions();
-        ffo.setBinary(new FirefoxBinary(new File(ff45)));
-        ffo.setProfile(new FirefoxProfile());
-        ffo.addDesiredCapabilities(caps);
-        driver = new FirefoxDriver(ffo);
-        wait = new WebDriverWait(driver, 10);
-
-    }
-
-    private void initFFNightlyDriver() {
-        FirefoxOptions ffo = new FirefoxOptions();
-        ffo.setProfile(new FirefoxProfile());
-        ffo.setBinary(new FirefoxBinary(new File(ffNightly)));
-        driver = new FirefoxDriver(ffo);
-        wait = new WebDriverWait(driver, 10);
-    }
-
-
-    private void initSafariDriver() {
-        driver = new SafariDriver();
-        wait = new WebDriverWait(driver, 10);
-    }
-
-    private void initIEDriver(){
-        File file = new File("C:/IEDriverServer.exe");
-        System.setProperty("webdriver.ie.driver", file.getAbsolutePath());
-        driver = new InternetExplorerDriver();
-        wait = new WebDriverWait(driver, 10);
-    }
-
 }
