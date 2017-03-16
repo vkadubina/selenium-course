@@ -78,7 +78,7 @@ abstract public class MultiBrowserBaseTest {
     public void init() {
         switch (browser) {
             case "chrome":
-                initChormeDriver();
+                initChromeDriver();
                 break;
             case "firefox":
                 initFFDriver();
@@ -110,7 +110,7 @@ abstract public class MultiBrowserBaseTest {
         }
     }
 
-    private void initChormeDriver() {
+    private void initChromeDriver() {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 10);
     }
