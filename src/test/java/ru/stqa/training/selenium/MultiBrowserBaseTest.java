@@ -27,6 +27,7 @@ abstract public class MultiBrowserBaseTest {
         OS currentOS = OS.detect();
         return Stream.of(SeleniumBrowser.values())
                 .filter(browser -> browser.isSupported(currentOS))
+                .filter(SeleniumBrowser::isEnabled)
                 .collect(toList());
     }
 
@@ -66,12 +67,8 @@ abstract public class MultiBrowserBaseTest {
 
     private static void loadTestEnvProperties() {
         Properties props = new Properties();
-        InputStream input = null;
 
-        try {
-
-            input = new FileInputStream("src/test/resources/test_env.properties");
-
+        try (InputStream input = new FileInputStream("src/test/resources/test_env.properties")) {
             // load a properties file
             props.load(input);
 
@@ -81,14 +78,6 @@ abstract public class MultiBrowserBaseTest {
 
         } catch (IOException ex) {
             ex.printStackTrace();
-        } finally {
-            if (input != null) {
-                try {
-                    input.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 }
