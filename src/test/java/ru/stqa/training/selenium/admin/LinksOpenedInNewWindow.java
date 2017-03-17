@@ -2,7 +2,10 @@ package ru.stqa.training.selenium.admin;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.stqa.training.selenium.MultiBrowserBaseTest;
 import ru.stqa.training.selenium.SeleniumBrowser;
 
@@ -35,15 +38,16 @@ public class LinksOpenedInNewWindow extends MultiBrowserBaseTest{
         Set<String> oldWindows = driver.getWindowHandles();
         for (WebElement link: allExternalLinks){
             link.click();
-            String newWindow = wait.until(d -> thereIsWindowOtherThan(oldWindows));
+            String newWindow = wait.until(d -> thereIsWindowOtherThan(d, oldWindows));
 
             driver.switchTo().window(newWindow);
+            wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("html")));
             driver.close();
             driver.switchTo().window(mainWindow);
         }
     }
 
-    private String thereIsWindowOtherThan(final Set<String> oldWindows) {
+    private static String thereIsWindowOtherThan(WebDriver driver, Set<String> oldWindows) {
 
         Set<String> newWindows = driver.getWindowHandles();
         newWindows.removeAll(oldWindows);

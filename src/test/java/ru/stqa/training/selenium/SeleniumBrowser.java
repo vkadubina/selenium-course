@@ -30,6 +30,7 @@ public enum SeleniumBrowser implements SeleniumDriverProvider{
     FIREFOX(WINDOWS, MAC) {
         @Override
         public WebDriver getDriver() {
+            System.setProperty("webdriver.gecko.driver", "C:/geckodriver.exe");
             return new FirefoxDriver();
         }
     },
@@ -40,6 +41,7 @@ public enum SeleniumBrowser implements SeleniumDriverProvider{
             File bin;
             if (os == WINDOWS) {
                 bin = new File(System.getProperty("browser.binary.ffnightly.windows"));
+                System.setProperty("webdriver.gecko.driver", "C:/geckodriver.exe");
             } else if (os == MAC) {
                 bin = new File(System.getProperty("browser.binary.ffnightly.mac"));
             } else {
