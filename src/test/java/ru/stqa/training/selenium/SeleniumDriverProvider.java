@@ -7,4 +7,6 @@ import org.openqa.selenium.WebDriver;
  */
 public interface SeleniumDriverProvider {
     WebDriver getDriver();
+
+    WebDriver getRemoteDriver();
 }
