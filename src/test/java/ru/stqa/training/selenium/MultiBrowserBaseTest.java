@@ -37,6 +37,7 @@ abstract public class MultiBrowserBaseTest {
 
     protected String clientUrl;
     protected String adminUrl;
+    public Application app;
 
     private SeleniumBrowser browser;
 
@@ -54,6 +55,7 @@ abstract public class MultiBrowserBaseTest {
     public void init() {
         driver = browser.getDriver();
         wait = new WebDriverWait(driver, 10);
+        app = new Application(driver);
     }
 
 
