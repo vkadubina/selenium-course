@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.stqa.training.selenium.client.app.Application;
 
 import java.io.FileInputStream;
 import java.io.IOException;

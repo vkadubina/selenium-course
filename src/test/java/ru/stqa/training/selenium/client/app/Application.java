@@ -1,10 +1,10 @@
-package ru.stqa.training.selenium;
+package ru.stqa.training.selenium.client.app;
 
 import org.openqa.selenium.WebDriver;
-import ru.stqa.training.selenium.client.CheckoutPage;
-import ru.stqa.training.selenium.client.MainPage;
-import ru.stqa.training.selenium.client.ProductPage;
-import ru.stqa.training.selenium.client.SiteMenuPage;
+import ru.stqa.training.selenium.client.pages.CheckoutPage;
+import ru.stqa.training.selenium.client.pages.MainPage;
+import ru.stqa.training.selenium.client.pages.ProductPage;
+import ru.stqa.training.selenium.client.pages.SiteMenuPage;
 
 import java.util.Random;
 

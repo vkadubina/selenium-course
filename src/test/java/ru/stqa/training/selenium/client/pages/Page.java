@@ -1,4 +1,4 @@
-package ru.stqa.training.selenium.client;
+package ru.stqa.training.selenium.client.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
