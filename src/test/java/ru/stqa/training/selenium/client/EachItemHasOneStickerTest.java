@@ -22,17 +22,14 @@ public class EachItemHasOneStickerTest extends MultiBrowserBaseTest {
     }
 
     @Test
-    public void eachItemHasOneSticker(){
+    public void eachItemHasOneSticker() {
         driver.get(clientUrl);
-        List<WebElement> productLists =  driver.findElements(By.cssSelector("ul.listing-wrapper.products"));
-        for (WebElement listOfProducts : productLists) {
-            for (int i = 1; i < listOfProducts.findElements(By.cssSelector("li.product")).size() + 1; i++) {
-
-                List<WebElement> stickers = (listOfProducts.findElements(By.cssSelector("li.product:nth-child(" + i + ") div.sticker")));
-                assertTrue(stickers.size() == 1);
-
-                List<String> stickerClasses = Arrays.asList(stickers.get(0).getAttribute("class").split("\\s"));
-                assertTrue(stickerClasses.size() == 2);
+        List<WebElement> productGroups = app.getMainPage().getAllProductGroups();
+        for (WebElement listOfProducts : productGroups) {
+            List<WebElement> products = app.getMainPage().getAllProductsInGroup(listOfProducts);
+            for (WebElement product : products) {
+                List<WebElement> stickers = app.getMainPage().getProductStickers(product);
+                assertTrue("product expected to have only one sticker", stickers.size() == 1);
             }
         }
     }

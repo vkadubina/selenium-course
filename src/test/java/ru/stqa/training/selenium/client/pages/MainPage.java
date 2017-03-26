@@ -18,7 +18,10 @@ public class MainPage extends Page {
     TradingPage tradingPage;
 
     @FindBy(css = "li.product a.link")
-    private List<WebElement> allProductsList;
+    private List<WebElement> allProductsLinksList;
+
+    @FindBy(css = "ul.listing-wrapper.products")
+    private List<WebElement> productGroups;
 
     public MainPage(WebDriver driver) {
         super(driver);
@@ -26,23 +29,42 @@ public class MainPage extends Page {
         tradingPage = new TradingPage(driver);
     }
 
-    public void open(){
-        driver.get(System.getProperty("app.client.url"));
-        wait.until(visibilityOfElementLocated(By.cssSelector("body")));
-    }
-
-    public void openProductPage(int i){
+    public void clickOnProductLink(int i){
         if (i >= getProductCount() || i < 0) throw new IllegalArgumentException("unexpected product id");
-        allProductsList.get(i).click();
+        getAllProductsLinksList().get(i).click();
         wait.until(visibilityOfElementLocated(By.cssSelector("button[name=add_cart_product]")));
     }
 
     public int getProductCount(){
-        return allProductsList.size();
+        return getAllProductsLinksList().size();
     }
 
 
     public TradingPage getTradingComponent() {
         return tradingPage;
+    }
+
+    public boolean isOnThisPage(){
+        return driver.findElements(By.id("slider-wrapper")).size() > 0;
+    }
+
+    public List<WebElement> getAllProductsLinksList(){
+        return allProductsLinksList;
+    }
+
+    public List<WebElement> getAllProductGroups(){
+        return productGroups;
+    }
+
+    public List<WebElement> getAllProductsInGroup(WebElement group){
+        return group.findElements(By.cssSelector("li.product"));
+    }
+
+    public List<WebElement> getProductStickers(WebElement product){
+        return product.findElements(By.cssSelector("div.sticker"));
+    }
+
+    public List<WebElement> getCampaignProducts(){
+        return driver.findElements(By.cssSelector("div#box-campaigns ul.products li"));
     }
 }

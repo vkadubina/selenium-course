@@ -1,11 +1,13 @@
 package ru.stqa.training.selenium.client.app;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import ru.stqa.training.selenium.client.pages.CheckoutPage;
 import ru.stqa.training.selenium.client.pages.MainPage;
 import ru.stqa.training.selenium.client.pages.ProductPage;
 import ru.stqa.training.selenium.client.pages.SiteMenuPage;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -18,7 +20,7 @@ public class Application {
     private MainPage mainPage;
     private ProductPage productPage;
     private CheckoutPage checkoutPage;
-    private SiteMenuPage shortcuts;
+    private SiteMenuPage siteMenuPage;
 
     private static final Random RANDOM = new Random();
 
@@ -26,17 +28,33 @@ public class Application {
     public Application(WebDriver driver) {
         this.driver = driver;
         mainPage = new MainPage(driver);
-        shortcuts = new SiteMenuPage(driver);
+        siteMenuPage = new SiteMenuPage(driver);
         productPage = new ProductPage(driver);
         checkoutPage = new CheckoutPage(driver);
     }
 
     public void addRandomProductsToCart(int amount) {
         for (int i = 0; i < amount; i++) {
-            shortcuts.goToMainPage();
-            mainPage.openProductPage(Math.abs(RANDOM.nextInt()) % mainPage.getProductCount());
+            siteMenuPage.goToMainPage();
+            mainPage.clickOnProductLink(Math.abs(RANDOM.nextInt()) % mainPage.getProductCount());
             addProductToCart();
         }
+    }
+
+    public MainPage getMainPage() {
+        return mainPage;
+    }
+
+    public ProductPage getProductPage() {
+        return productPage;
+    }
+
+    public CheckoutPage getCheckoutPage() {
+        return checkoutPage;
+    }
+
+    public SiteMenuPage getSiteMenuPage() {
+        return siteMenuPage;
     }
 
     private void addProductToCart() {
@@ -49,7 +67,7 @@ public class Application {
 
     public void deleteAllProductsFromCart() {
 
-        shortcuts.goToMainPage();
+        siteMenuPage.goToMainPage();
         mainPage.getTradingComponent().goToCheckoutPage();
         while(checkoutPage.isCartEmpty()){
             checkoutPage.deleteItem();
@@ -58,11 +76,7 @@ public class Application {
 
     public int getQtyOfItemsInCart() {
 
-        shortcuts.goToMainPage();
+        siteMenuPage.goToMainPage();
         return mainPage.getTradingComponent().getQtyOfItemsInCart();
-    }
-
-    public void open(){
-        mainPage.open();
     }
 }

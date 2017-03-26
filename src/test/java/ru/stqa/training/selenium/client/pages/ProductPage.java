@@ -53,4 +53,12 @@ public class ProductPage extends Page {
                 .collect(Collectors.toList());
         return sizes;
     }
+
+    public boolean isOnThisPage(){
+        return driver.findElements(By.id("box-product")).size()>0;
+    }
+
+    public WebElement getProduct(){
+        return driver.findElement((By.cssSelector("div#box-product")));
+    }
 }
