@@ -10,6 +10,7 @@ public class Page {
 
         protected WebDriver driver;
         protected WebDriverWait wait;
+        protected final String clientUrl = System.getProperty("app.client.url");
 
         public Page(WebDriver driver) {
             this.driver = driver;

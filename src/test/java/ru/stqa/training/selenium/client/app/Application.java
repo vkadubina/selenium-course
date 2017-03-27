@@ -1,13 +1,10 @@
 package ru.stqa.training.selenium.client.app;
 
+import io.codearte.jfairy.Fairy;
+import io.codearte.jfairy.producer.person.Person;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import ru.stqa.training.selenium.client.pages.CheckoutPage;
-import ru.stqa.training.selenium.client.pages.MainPage;
-import ru.stqa.training.selenium.client.pages.ProductPage;
-import ru.stqa.training.selenium.client.pages.SiteMenuPage;
+import ru.stqa.training.selenium.client.pages.*;
 
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -21,9 +18,9 @@ public class Application {
     private ProductPage productPage;
     private CheckoutPage checkoutPage;
     private SiteMenuPage siteMenuPage;
+    private UserRegistrationPage registrationPage;
 
     private static final Random RANDOM = new Random();
-
 
     public Application(WebDriver driver) {
         this.driver = driver;
@@ -31,6 +28,7 @@ public class Application {
         siteMenuPage = new SiteMenuPage(driver);
         productPage = new ProductPage(driver);
         checkoutPage = new CheckoutPage(driver);
+        registrationPage = new UserRegistrationPage(driver);
     }
 
     public void addRandomProductsToCart(int amount) {
@@ -57,6 +55,10 @@ public class Application {
         return siteMenuPage;
     }
 
+    public UserRegistrationPage getRegistrationPage() {
+        return registrationPage;
+    }
+
     private void addProductToCart() {
 
         int size = productPage.getSizes().size();
@@ -68,7 +70,7 @@ public class Application {
     public void deleteAllProductsFromCart() {
 
         siteMenuPage.goToMainPage();
-        mainPage.getTradingComponent().goToCheckoutPage();
+        mainPage.getTradingPage().goToCheckoutPage();
         while(checkoutPage.isCartEmpty()){
             checkoutPage.deleteItem();
         }
@@ -77,6 +79,47 @@ public class Application {
     public int getQtyOfItemsInCart() {
 
         siteMenuPage.goToMainPage();
-        return mainPage.getTradingComponent().getQtyOfItemsInCart();
+        return mainPage.getTradingPage().getQtyOfItemsInCart();
+    }
+
+    public void registerUser() {
+        registerUser(null, null, null);
+    }
+
+    public void registerUser(Person user) {
+        registerUser(user, null, null);
+    }
+
+    public void registerUser(Person user, String country, String zone){
+        if (country == null)
+            country = "United States";
+        if (user == null){
+            user = Fairy.create().person();
+        }
+        registrationPage
+                .inputFirstName(user.getFirstName())
+                .inputLastName(user.getLastName())
+                .inputAdress1(user.getAddress().getAddressLine1())
+                .inputPostcode(user.getAddress().getPostalCode())
+                .inputCity(user.getAddress().getCity())
+                .selectCountry(country)
+                .selectZone(zone)
+                .inputEmail(user.getEmail())
+                .inputPhone(user.getTelephoneNumber())
+                .inputPassword(user.getPassword())
+                .inputConfirmedPassword(user.getPassword())
+                .clickCreateAccountButton();
+    }
+
+    public void logout() {
+        siteMenuPage.goToMainPage();
+        mainPage.getNavigationPage().clockLogoutLink();
+    }
+
+    public void loginAs(String email, String password){
+        mainPage.getNavigationPage()
+                .inputEmail(email)
+                .inputPassword(password)
+                .clickLoginLink();
     }
 }

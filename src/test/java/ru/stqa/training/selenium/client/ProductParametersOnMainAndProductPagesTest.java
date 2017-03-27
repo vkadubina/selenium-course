@@ -27,7 +27,7 @@ public class ProductParametersOnMainAndProductPagesTest extends MultiBrowserBase
 
     @Test
     public void compareItemParametersOnMainAndProductPages() {
-        driver.get(clientUrl);
+        app.getMainPage().open();
         assertCampaignsContainsProducts();
 
         CampaignProduct productOnMainPage = new CampaignProduct(
@@ -42,7 +42,8 @@ public class ProductParametersOnMainAndProductPagesTest extends MultiBrowserBase
 
         assertPriceParameters(productOnSelfPage,GREY_ON_PROD_PAGE);
 
-        assertEquals("product titles expected to be the same", productOnMainPage.getTitle(),productOnSelfPage.getTitle());
+        assertEquals("product titles expected to be the same",
+                productOnMainPage.getTitle(),productOnSelfPage.getTitle());
         assertEquals("regular prices expected to be the same",
                 productOnMainPage.getRegularPrice().getValue(),productOnSelfPage.getRegularPrice().getValue());
         assertEquals("regular prices expected to be the same",

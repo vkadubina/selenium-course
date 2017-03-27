@@ -17,7 +17,7 @@ public class NavigateToProductPageTest extends MultiBrowserBaseTest {
 
     @Test
     public void navigateToProductPageTest() {
-        driver.get(clientUrl);
+        app.getMainPage().open();
         assertTrue(app.getMainPage().isOnThisPage());
 
         app.getMainPage().clickOnProductLink(0);

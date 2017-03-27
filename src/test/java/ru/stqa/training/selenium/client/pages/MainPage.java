@@ -16,6 +16,14 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 public class MainPage extends Page {
 
     TradingPage tradingPage;
+    NavigationPage navigationPage;
+
+    public MainPage(WebDriver driver) {
+        super(driver);
+        PageFactory.initElements(driver,this);
+        tradingPage = new TradingPage(driver);
+        navigationPage = new NavigationPage(driver);
+    }
 
     @FindBy(css = "li.product a.link")
     private List<WebElement> allProductsLinksList;
@@ -23,10 +31,11 @@ public class MainPage extends Page {
     @FindBy(css = "ul.listing-wrapper.products")
     private List<WebElement> productGroups;
 
-    public MainPage(WebDriver driver) {
-        super(driver);
-        PageFactory.initElements(driver,this);
-        tradingPage = new TradingPage(driver);
+    @FindBy(css = "div#notices-wrapper div.notice")
+    WebElement notice;
+
+    public WebElement getNotice() {
+        return notice;
     }
 
     public void clickOnProductLink(int i){
@@ -40,8 +49,16 @@ public class MainPage extends Page {
     }
 
 
-    public TradingPage getTradingComponent() {
+    public TradingPage getTradingPage() {
         return tradingPage;
+    }
+
+    public NavigationPage getNavigationPage() {
+        return navigationPage;
+    }
+
+    public void open(){
+        driver.get(clientUrl);
     }
 
     public boolean isOnThisPage(){

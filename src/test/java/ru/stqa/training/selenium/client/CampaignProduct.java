@@ -7,13 +7,12 @@ import org.openqa.selenium.WebElement;
  * @author Victoria Kadubina
  */
 public class CampaignProduct {
-    Price regularPrice;
-    Price campaignPrice;
-    String title;
-    WebElement link;
+    private final Price regularPrice;
+    private final Price campaignPrice;
+    private final String title;
+    private final WebElement link;
 
     public CampaignProduct(WebElement product, String titleSelector) {
-
         WebElement priceWrapper = product.findElement(By.cssSelector("div.price-wrapper"));
         regularPrice = new Price(priceWrapper.findElement(By.cssSelector(".regular-price")));
         campaignPrice = new Price(priceWrapper.findElement(By.cssSelector(".campaign-price")));

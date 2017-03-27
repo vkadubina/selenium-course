@@ -11,11 +11,11 @@ import java.util.regex.Pattern;
  * @author Victoria Kadubina
  */
 public class Price {
-    private int value;
-    private String textDecoration;
-    private Color color;
-    private Double fontSize;
-    private boolean isStrong;
+    private final int value;
+    private final String textDecoration;
+    private final Color color;
+    private final Double fontSize;
+    private final boolean isStrong;
 
     public Price(WebElement price) {
         this.value = Integer.parseInt(price.getText().replace("$", ""));
@@ -25,7 +25,7 @@ public class Price {
         this.isStrong = "strong".equals(price.getTagName());
     }
 
-    public boolean isStruckOut(){
+    public boolean isStruckOut() {
         return getTextDecoration().contains("line-through");
     }
 
@@ -66,9 +66,9 @@ public class Price {
     }
 
     static class Color {
-        private int r;
-        private int g;
-        private int b;
+        private final int r;
+        private final int g;
+        private final int b;
 
         public Color(int r, int g, int b) {
             this.r = r;
@@ -80,24 +80,12 @@ public class Price {
             return r;
         }
 
-        public void setR(int r) {
-            this.r = r;
-        }
-
         public int getG() {
             return g;
         }
 
-        public void setG(int g) {
-            this.g = g;
-        }
-
         public int getB() {
             return b;
-        }
-
-        public void setB(int b) {
-            this.b = b;
         }
 
         @Override
