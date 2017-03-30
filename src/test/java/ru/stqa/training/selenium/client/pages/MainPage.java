@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import ru.stqa.training.selenium.Page;
 
 import java.util.List;
 
@@ -15,14 +16,14 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
  */
 public class MainPage extends Page {
 
-    TradingPage tradingPage;
-    NavigationPage navigationPage;
+    CartMenu cartMenu;
+    NavigationMenu navigationPage;
 
     public MainPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver,this);
-        tradingPage = new TradingPage(driver);
-        navigationPage = new NavigationPage(driver);
+        cartMenu = new CartMenu(driver);
+        navigationPage = new NavigationMenu(driver);
     }
 
     @FindBy(css = "li.product a.link")
@@ -39,21 +40,16 @@ public class MainPage extends Page {
     }
 
     public void clickOnProductLink(int i){
-        if (i >= getProductCount() || i < 0) throw new IllegalArgumentException("unexpected product id");
+        if (i >= getAllProductsLinksList().size() || i < 0) throw new IllegalArgumentException("unexpected product id");
         getAllProductsLinksList().get(i).click();
         wait.until(visibilityOfElementLocated(By.cssSelector("button[name=add_cart_product]")));
     }
 
-    public int getProductCount(){
-        return getAllProductsLinksList().size();
+    public CartMenu getCartMenu() {
+        return cartMenu;
     }
 
-
-    public TradingPage getTradingPage() {
-        return tradingPage;
-    }
-
-    public NavigationPage getNavigationPage() {
+    public NavigationMenu getNavigationPage() {
         return navigationPage;
     }
 

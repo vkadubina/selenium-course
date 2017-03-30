@@ -27,18 +27,18 @@ public class ProductParametersOnMainAndProductPagesTest extends MultiBrowserBase
 
     @Test
     public void compareItemParametersOnMainAndProductPages() {
-        app.getMainPage().open();
+        clientApp.getMainPage().open();
         assertCampaignsContainsProducts();
 
         CampaignProduct productOnMainPage = new CampaignProduct(
-                app.getMainPage().getCampaignProducts().get(0),TITLE_ON_MAIN_PAGE);
+                clientApp.getMainPage().getCampaignProducts().get(0),TITLE_ON_MAIN_PAGE);
 
         assertPriceParameters(productOnMainPage,GREY_ON_MAIN_PAGE);
 
         productOnMainPage.getLink().click();
         wait.until(urlContains("rubber-ducks"));
 
-        CampaignProduct productOnSelfPage = new CampaignProduct(app.getProductPage().getProduct(),TITLE_ON_PROD_PAGE);
+        CampaignProduct productOnSelfPage = new CampaignProduct(clientApp.getProductPage().getProduct(),TITLE_ON_PROD_PAGE);
 
         assertPriceParameters(productOnSelfPage,GREY_ON_PROD_PAGE);
 
@@ -67,7 +67,7 @@ public class ProductParametersOnMainAndProductPagesTest extends MultiBrowserBase
     }
 
     private void assertCampaignsContainsProducts() {
-        int campaignsProductsCount = app.getMainPage().getCampaignProducts().size();
+        int campaignsProductsCount = clientApp.getMainPage().getCampaignProducts().size();
         assertTrue("Campaigns section expected to have products", campaignsProductsCount > 0);
     }
 

@@ -5,13 +5,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import ru.stqa.training.selenium.Page;
 
 import java.util.List;
 
 /**
  * @author Victoria Kadubina
  */
-public class CheckoutPage extends Page{
+public class CheckoutPage extends Page {
 
     public CheckoutPage(WebDriver driver) {
         super(driver);

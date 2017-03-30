@@ -14,7 +14,6 @@ import java.util.stream.Stream;
 import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertFalse;
 import static org.openqa.selenium.support.ui.ExpectedConditions.stalenessOf;
-import static ru.stqa.training.selenium.admin.AdminPageHelper.loginInAdmin;
 import static ru.stqa.training.selenium.admin.AdminPageHelper.openAdminSection;
 
 /**
@@ -35,7 +34,7 @@ public class BrowserLogsTest extends MultiBrowserBaseTest {
 
     @Test
     public void thereIsNoMessagesInBrowserLogs() {
-        loginInAdmin(driver);
+        adminApp.login();
         openAdminSection(driver, wait, "Catalog");
         openAllProductPagesOneByOne();
         checkLogsDoNotContainMessages();

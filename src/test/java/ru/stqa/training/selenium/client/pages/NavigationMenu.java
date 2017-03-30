@@ -6,15 +6,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.stqa.training.selenium.Page;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
 
 /**
  * @author Victoria Kadubina
  */
-public class NavigationPage extends Page {
+public class NavigationMenu extends Page {
 
-    public NavigationPage(WebDriver driver) {
+    public NavigationMenu(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver,this);
     }
@@ -38,12 +39,12 @@ public class NavigationPage extends Page {
     @FindBy(name = "login_form")
     private WebElement loginForm;
 
-    public NavigationPage inputEmail(String email){
+    public NavigationMenu inputEmail(String email){
         loginForm.findElement(By.cssSelector("input[name=email]")).sendKeys(email);
         return this;
     }
 
-    public NavigationPage inputPassword(String password){
+    public NavigationMenu inputPassword(String password){
         loginForm.findElement(By.cssSelector("input[name=password]")).sendKeys(password);
         return this;
     }

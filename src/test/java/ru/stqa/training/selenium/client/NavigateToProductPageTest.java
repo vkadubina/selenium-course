@@ -17,10 +17,10 @@ public class NavigateToProductPageTest extends MultiBrowserBaseTest {
 
     @Test
     public void navigateToProductPageTest() {
-        app.getMainPage().open();
-        assertTrue(app.getMainPage().isOnThisPage());
+        clientApp.getMainPage().open();
+        assertTrue(clientApp.getMainPage().isOnThisPage());
 
-        app.getMainPage().clickOnProductLink(0);
-        assertTrue(app.getProductPage().isOnThisPage());
+        clientApp.getMainPage().clickOnProductLink(0);
+        assertTrue(clientApp.getProductPage().isOnThisPage());
     }
 }

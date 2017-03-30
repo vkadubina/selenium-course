@@ -6,7 +6,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.stqa.training.selenium.client.app.Application;
+import ru.stqa.training.selenium.admin.app.AdminApplication;
+import ru.stqa.training.selenium.client.app.ClientApplication;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.util.Collection;
 import java.util.Properties;
 import java.util.stream.Stream;
 
+import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -38,7 +40,8 @@ abstract public class MultiBrowserBaseTest {
 
     protected String clientUrl;
     protected String adminUrl;
-    public Application app;
+    public ClientApplication clientApp;
+    public AdminApplication adminApp;
 
     private SeleniumBrowser browser;
 
@@ -51,14 +54,15 @@ abstract public class MultiBrowserBaseTest {
     protected WebDriver driver;
     protected WebDriverWait wait;
 
-
     @Before
     public void init() {
         driver = browser.getDriver();
-        wait = new WebDriverWait(driver, 10);
-        app = new Application(driver);
-    }
 
+        setWebDriver(driver);
+        wait = new WebDriverWait(driver, 10);
+        clientApp = new ClientApplication(driver);
+        adminApp = new AdminApplication(driver);
+    }
 
     @After
     public void stop() {

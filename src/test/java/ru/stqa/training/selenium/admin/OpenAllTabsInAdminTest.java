@@ -1,5 +1,7 @@
 package ru.stqa.training.selenium.admin;
 
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -10,7 +12,6 @@ import ru.stqa.training.selenium.MultiBrowserBaseTest;
 import ru.stqa.training.selenium.SeleniumBrowser;
 
 import static org.junit.Assert.assertTrue;
-import static ru.stqa.training.selenium.admin.AdminPageHelper.*;
 
 /**
  * @author Victoria Kadubina
@@ -25,36 +26,34 @@ public class OpenAllTabsInAdminTest extends MultiBrowserBaseTest {
 
     @Test
     public void clickAllTabsAndSubtabs() {
-        loginInAdmin(driver);
+        adminApp.login();
 
-        int categoriesCount = driver.findElements(By.cssSelector("ul#box-apps-menu > li")).size();
+        int categoriesCount = adminApp.getSidebarMenu().getCategories().size();
 
         for (int i = 1; i <= categoriesCount; i++) {
 
             //need to understand that the page is updated
-            WebElement logo = driver.findElement(By.cssSelector("div.logotype"));
+            WebElement logo = adminApp.getSidebarMenu().getLogotype();
 
-            String cssSelector = "ul#box-apps-menu > li:nth-child(" + i + ")";
-            driver.findElement(By.cssSelector(cssSelector)).click();
+            SelenideElement category = adminApp.getSidebarMenu().getCategory(i);
+            category.click();
             wait.until(ExpectedConditions.stalenessOf(logo));
 
             assertPageHeaderExists();
 
-            for (int j = 1; j < getSubcategoriesQty(cssSelector) + 1; j++) {
+            category = adminApp.getSidebarMenu().getCategory(i);
+            for (int j = 1; j < adminApp.getSidebarMenu().getSubcategories(category).size() + 1; j++) {
 
                 //need to understand that the page is updated
-                logo = driver.findElement(By.cssSelector("div.logotype"));
+                logo = adminApp.getSidebarMenu().getLogotype();
 
-                driver.findElement(By.cssSelector(cssSelector + " li:nth-child(" + j + ")")).click();
+                adminApp.getSidebarMenu().getSubCategory(category,j).click();
                 wait.until(ExpectedConditions.stalenessOf(logo));
 
                 assertPageHeaderExists();
+                category = adminApp.getSidebarMenu().getCategory(i);
             }
         }
-    }
-
-    private int getSubcategoriesQty(String cssSelector) {
-        return driver.findElements(By.cssSelector(cssSelector + " li")).size();
     }
 
     private void assertPageHeaderExists() {

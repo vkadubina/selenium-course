@@ -8,7 +8,7 @@ import ru.stqa.training.selenium.SeleniumBrowser;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
-import static ru.stqa.training.selenium.admin.AdminPageHelper.loginInAdmin;
+import static ru.stqa.training.selenium.admin.AdminPageHelper.*;
 import static ru.stqa.training.selenium.admin.AdminPageHelper.openAdminSection;
 
 /**
@@ -23,7 +23,7 @@ public class SortingOfCountriesInAdminTest extends MultiBrowserBaseTest {
 
     @Test
     public void isAllCountriesSorted() {
-        loginInAdmin(driver);
+        adminApp.login();
         openAdminSection(driver,wait,"Countries");
 
         int countriesCount = driver.findElements(By.cssSelector("tr.row")).size();

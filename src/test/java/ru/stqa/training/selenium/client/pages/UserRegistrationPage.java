@@ -6,13 +6,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+import ru.stqa.training.selenium.Page;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 /**
  * @author Victoria Kadubina
  */
-public class UserRegistrationPage extends Page{
+public class UserRegistrationPage extends Page {
 
     public UserRegistrationPage(WebDriver driver) {
         super(driver);
@@ -109,7 +110,7 @@ public class UserRegistrationPage extends Page{
     public UserRegistrationPage selectZone(String zone){
         if (zone != null){
         Select selectZone = new Select(driver.findElement(By.cssSelector("select[name=zone_code]")));
-        selectZone.deselectByVisibleText(zone);
+        selectZone.selectByVisibleText(zone);
         }
         return this;
     }

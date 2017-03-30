@@ -31,7 +31,7 @@ public class NewUserRegistrationTest extends MultiBrowserBaseTest {
 
     @Test
     public void newUserRegistrationAndLoginTest(){
-        app.getMainPage().open();
+        clientApp.getMainPage().open();
         userRegistration();
         logout();
         login();
@@ -39,22 +39,22 @@ public class NewUserRegistrationTest extends MultiBrowserBaseTest {
     }
 
     private void userRegistration(){
-        app.getMainPage().getNavigationPage().clickNewUserRegistrationLink();
-        app.registerUser(person, "United States", "Arizona");
-        WebElement notice = app.getMainPage().getNotice();
+        clientApp.getMainPage().getNavigationPage().clickNewUserRegistrationLink();
+        clientApp.registerUser(person, "United States", "Arizona");
+        WebElement notice = clientApp.getMainPage().getNotice();
         assertTrue(notice.getText().equals("Your customer account has been created."));
     }
 
     private void logout(){
-        app.logout();
-        WebElement notice = app.getMainPage().getNotice();
+        clientApp.logout();
+        WebElement notice = clientApp.getMainPage().getNotice();
         assertTrue(notice.getAttribute("class").contains("success"));
         assertTrue(notice.getText().equals("You are now logged out."));
     }
 
     private void login(){
-        app.loginAs(person.getEmail(),person.getPassword());
-        WebElement notice = app.getMainPage().getNotice();
+        clientApp.loginAs(person.getEmail(),person.getPassword());
+        WebElement notice = clientApp.getMainPage().getNotice();
         Assert.assertTrue(notice.getAttribute("class").contains("success"));
         Assert.assertTrue(notice.getText().startsWith("You are now logged in as"));
     }

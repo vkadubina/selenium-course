@@ -14,7 +14,6 @@ import java.util.List;
 
 import static org.junit.Assert.fail;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlContains;
-import static ru.stqa.training.selenium.admin.AdminPageHelper.loginInAdmin;
 import static ru.stqa.training.selenium.admin.AdminPageHelper.openAdminSection;
 
 /**
@@ -28,7 +27,7 @@ public class AddNewProductTest extends MultiBrowserBaseTest {
 
     @Test
     public void addNewProductTest() {
-        loginInAdmin(driver);
+        adminApp.login();
         openAdminSection(driver, wait, "Catalog");
         String productName = "Bayern Duck " + System.currentTimeMillis();
 

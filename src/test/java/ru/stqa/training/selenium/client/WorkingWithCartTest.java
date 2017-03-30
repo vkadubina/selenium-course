@@ -19,10 +19,10 @@ public class WorkingWithCartTest extends MultiBrowserBaseTest {
     @Test
     public void workingWithCartTest() {
         driver.get(clientUrl);
-        app.addRandomProductsToCart(3);
-        assertTrue(app.getQtyOfItemsInCart() == 3);
+        clientApp.addRandomProductsToCart(3);
+        assertTrue(clientApp.getQtyOfItemsInCart() == 3);
 
-        app.deleteAllProductsFromCart();
-        assertTrue(app.getQtyOfItemsInCart() == 0);
+        clientApp.deleteAllProductsFromCart();
+        assertTrue(clientApp.getQtyOfItemsInCart() == 0);
     }
 }

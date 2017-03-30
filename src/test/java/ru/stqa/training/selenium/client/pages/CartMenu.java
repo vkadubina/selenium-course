@@ -4,15 +4,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import ru.stqa.training.selenium.Page;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlContains;
 
 /**
  * @author Victoria Kadubina
  */
-public class TradingPage extends Page{
+public class CartMenu extends Page {
 
-    public TradingPage(WebDriver driver) {
+    public CartMenu(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver,this);
     }

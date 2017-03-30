@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+import ru.stqa.training.selenium.Page;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,19 +16,19 @@ import java.util.stream.Collectors;
  */
 public class ProductPage extends Page {
 
-    TradingPage tradingPage;
+    CartMenu cartMenu;
 
     public ProductPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver,this);
-        tradingPage = new TradingPage(driver);
+        cartMenu = new CartMenu(driver);
     }
 
     @FindBy(css = "button[name=add_cart_product]")
     WebElement addToCartButton;
 
     public void addSelectedProductToCart(){
-        int qtyOfProductsInCart = tradingPage.getQtyOfItemsInCart();
+        int qtyOfProductsInCart = cartMenu.getQtyOfItemsInCart();
         String expectedQty = Integer.toString(++qtyOfProductsInCart);
         addToCartButton.click();
         wait.until(d -> d.findElement(
