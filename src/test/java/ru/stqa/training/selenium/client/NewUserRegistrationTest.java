@@ -20,7 +20,7 @@ public class NewUserRegistrationTest extends MultiBrowserBaseTest {
     private Person person;
 
     @Before
-    public void init(){
+    public void init() {
         super.init();
         person = FAIRY.person();
     }
@@ -30,7 +30,7 @@ public class NewUserRegistrationTest extends MultiBrowserBaseTest {
     }
 
     @Test
-    public void newUserRegistrationAndLoginTest(){
+    public void newUserRegistrationAndLoginTest() {
         clientApp.getMainPage().open();
         userRegistration();
         logout();
@@ -38,22 +38,22 @@ public class NewUserRegistrationTest extends MultiBrowserBaseTest {
         logout();
     }
 
-    private void userRegistration(){
+    private void userRegistration() {
         clientApp.getMainPage().getNavigationPage().clickNewUserRegistrationLink();
         clientApp.registerUser(person, "United States", "Arizona");
         WebElement notice = clientApp.getMainPage().getNotice();
         assertTrue(notice.getText().equals("Your customer account has been created."));
     }
 
-    private void logout(){
+    private void logout() {
         clientApp.logout();
         WebElement notice = clientApp.getMainPage().getNotice();
         assertTrue(notice.getAttribute("class").contains("success"));
         assertTrue(notice.getText().equals("You are now logged out."));
     }
 
-    private void login(){
-        clientApp.loginAs(person.getEmail(),person.getPassword());
+    private void login() {
+        clientApp.loginAs(person.getEmail(), person.getPassword());
         WebElement notice = clientApp.getMainPage().getNotice();
         Assert.assertTrue(notice.getAttribute("class").contains("success"));
         Assert.assertTrue(notice.getText().startsWith("You are now logged in as"));

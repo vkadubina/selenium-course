@@ -8,7 +8,7 @@ public enum OS {
 
     private static String OS_NAME = System.getProperty("os.name").toLowerCase();
 
-    public static OS detect(){
+    public static OS detect() {
         if (OS_NAME.contains("win"))
             return WINDOWS;
         else if (OS_NAME.contains("mac"))

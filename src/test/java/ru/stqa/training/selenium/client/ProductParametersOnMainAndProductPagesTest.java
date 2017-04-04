@@ -31,23 +31,23 @@ public class ProductParametersOnMainAndProductPagesTest extends MultiBrowserBase
         assertCampaignsContainsProducts();
 
         CampaignProduct productOnMainPage = new CampaignProduct(
-                clientApp.getMainPage().getCampaignProducts().get(0),TITLE_ON_MAIN_PAGE);
+                clientApp.getMainPage().getCampaignProducts().get(0), TITLE_ON_MAIN_PAGE);
 
-        assertPriceParameters(productOnMainPage,GREY_ON_MAIN_PAGE);
+        assertPriceParameters(productOnMainPage, GREY_ON_MAIN_PAGE);
 
         productOnMainPage.getLink().click();
         wait.until(urlContains("rubber-ducks"));
 
-        CampaignProduct productOnSelfPage = new CampaignProduct(clientApp.getProductPage().getProduct(),TITLE_ON_PROD_PAGE);
+        CampaignProduct productOnSelfPage = new CampaignProduct(clientApp.getProductPage().getProduct(), TITLE_ON_PROD_PAGE);
 
-        assertPriceParameters(productOnSelfPage,GREY_ON_PROD_PAGE);
+        assertPriceParameters(productOnSelfPage, GREY_ON_PROD_PAGE);
 
         assertEquals("product titles expected to be the same",
-                productOnMainPage.getTitle(),productOnSelfPage.getTitle());
+                productOnMainPage.getTitle(), productOnSelfPage.getTitle());
         assertEquals("regular prices expected to be the same",
-                productOnMainPage.getRegularPrice().getValue(),productOnSelfPage.getRegularPrice().getValue());
+                productOnMainPage.getRegularPrice().getValue(), productOnSelfPage.getRegularPrice().getValue());
         assertEquals("regular prices expected to be the same",
-                productOnMainPage.getCampaignPrice().getValue(),productOnSelfPage.getCampaignPrice().getValue());
+                productOnMainPage.getCampaignPrice().getValue(), productOnSelfPage.getCampaignPrice().getValue());
 
     }
 

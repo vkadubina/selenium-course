@@ -12,21 +12,20 @@ import java.util.List;
 import java.util.Set;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlContains;
-import static ru.stqa.training.selenium.admin.AdminPageHelper.openAdminSection;
 
 /**
  * @author Victoria Kadubina
  */
-public class LinksOpenedInNewWindow extends MultiBrowserBaseTest{
+public class LinksOpenedInNewWindow extends MultiBrowserBaseTest {
 
     public LinksOpenedInNewWindow(SeleniumBrowser browser) {
         super(browser);
     }
 
     @Test
-    public void testLinksAreOpenedInNewWindow(){
+    public void testLinksAreOpenedInNewWindow() {
         adminApp.login();
-        openAdminSection(driver, wait, "Countries");
+        adminApp.openAdminSection("Countries");
         clickAddNewCountryButton();
         openAllExternalLinks(findAllExternalLinks());
     }
@@ -34,7 +33,7 @@ public class LinksOpenedInNewWindow extends MultiBrowserBaseTest{
     private void openAllExternalLinks(List<WebElement> allExternalLinks) {
         String mainWindow = driver.getWindowHandle();
         Set<String> oldWindows = driver.getWindowHandles();
-        for (WebElement link: allExternalLinks){
+        for (WebElement link : allExternalLinks) {
             link.click();
             String newWindow = wait.until(d -> thereIsWindowOtherThan(d, oldWindows));
 

@@ -14,7 +14,6 @@ import java.util.stream.Stream;
 import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertFalse;
 import static org.openqa.selenium.support.ui.ExpectedConditions.stalenessOf;
-import static ru.stqa.training.selenium.admin.AdminPageHelper.openAdminSection;
 
 /**
  * @author Victoria Kadubina
@@ -35,7 +34,7 @@ public class BrowserLogsTest extends MultiBrowserBaseTest {
     @Test
     public void thereIsNoMessagesInBrowserLogs() {
         adminApp.login();
-        openAdminSection(driver, wait, "Catalog");
+        adminApp.openAdminSection("Catalog");
         openAllProductPagesOneByOne();
         checkLogsDoNotContainMessages();
 
@@ -46,8 +45,7 @@ public class BrowserLogsTest extends MultiBrowserBaseTest {
                 driver.manage().logs().get("browser").getAll()
                         .stream()
                         // Assuming that only warning and severe level log messages mean that something is wrong
-                        .filter(l -> l.getLevel().intValue() > Level.INFO.intValue()).findAny()
-                        .isPresent()
+                        .anyMatch(l -> l.getLevel().intValue() > Level.INFO.intValue())
         );
     }
 

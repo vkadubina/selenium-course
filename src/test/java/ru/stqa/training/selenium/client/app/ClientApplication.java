@@ -72,7 +72,7 @@ public class ClientApplication {
 
         siteMenuPage.goToMainPage();
         mainPage.getCartMenu().goToCheckoutPage();
-        while(checkoutPage.isCartEmpty()){
+        while (checkoutPage.isCartEmpty()) {
             checkoutPage.deleteItem();
         }
     }
@@ -91,8 +91,8 @@ public class ClientApplication {
         registerUser(user, null, null);
     }
 
-    public void registerUser(Person user, String country, String zone){
-        if (user == null){
+    public void registerUser(Person user, String country, String zone) {
+        if (user == null) {
             user = Fairy.create().person();
         }
         registrationPage
@@ -115,7 +115,7 @@ public class ClientApplication {
         mainPage.getNavigationPage().clockLogoutLink();
     }
 
-    public void loginAs(String email, String password){
+    public void loginAs(String email, String password) {
         mainPage.getNavigationPage()
                 .inputEmail(email)
                 .inputPassword(password)

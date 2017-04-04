@@ -6,10 +6,9 @@ import org.openqa.selenium.WebElement;
 import ru.stqa.training.selenium.MultiBrowserBaseTest;
 import ru.stqa.training.selenium.SeleniumBrowser;
 
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlContains;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
-import static ru.stqa.training.selenium.admin.AdminPageHelper.openAdminSection;
 
 /**
  * @author Victoria Kadubina
@@ -22,7 +21,7 @@ public class SortingOfGeoZonesInAdminTest extends MultiBrowserBaseTest {
     @Test
     public void isAllGeoZonesSorted() {
         adminApp.login();
-        openAdminSection(driver,wait,"Geo Zones");
+        adminApp.openAdminSection("Geo Zones");
         int zonesCount = driver.findElements(By.cssSelector("tr.row")).size();
 
         for (int i = 0; i < zonesCount; i++) {

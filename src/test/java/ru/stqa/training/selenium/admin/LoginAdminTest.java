@@ -18,22 +18,18 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
  */
 public class LoginAdminTest extends MultiBrowserBaseTest {
 
-        public LoginAdminTest(SeleniumBrowser browser) {
-            super(browser);
-        }
-
-        @Test
-        public void loginWithCorrectPassword() {
-            adminApp.login();
-        }
-
-        @Test
-        public void loginWithWrongPassword() {
-            try {
-                adminApp.login("admin", "wrong-password");
-                Assert.fail();
-            } catch (TimeoutException e){
-                e.printStackTrace();
-            }
-        }
+    public LoginAdminTest(SeleniumBrowser browser) {
+        super(browser);
     }
+
+    @Test
+    public void loginWithCorrectPassword() {
+        adminApp.login();
+        assertTrue(adminApp.getSidebarMenu().getCategories().size() > 0);
+    }
+
+    @Test(expected = TimeoutException.class)
+    public void loginWithWrongPassword() {
+        adminApp.login("admin", "wrong-password");
+    }
+}

@@ -16,13 +16,13 @@ public class CheckoutPage extends Page {
 
     public CheckoutPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
 
     @FindBy(css = "div#order_confirmation-wrapper td.item")
     List<WebElement> productsInTable;
 
-    @FindBy(name="cart_form")
+    @FindBy(name = "cart_form")
     WebElement cartForm;
 
     public void deleteItem() {
@@ -36,7 +36,7 @@ public class CheckoutPage extends Page {
         }
     }
 
-    public boolean isCartEmpty(){
+    public boolean isCartEmpty() {
         List<WebElement> webElements = driver.findElements(By.cssSelector("div#checkout-cart-wrapper em"));
         if (webElements.isEmpty()) return true;
         String label = webElements.get(0).getText();

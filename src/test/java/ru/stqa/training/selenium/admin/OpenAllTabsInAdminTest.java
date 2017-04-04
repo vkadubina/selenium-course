@@ -1,11 +1,8 @@
 package ru.stqa.training.selenium.admin;
 
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.stqa.training.selenium.MultiBrowserBaseTest;
@@ -32,32 +29,28 @@ public class OpenAllTabsInAdminTest extends MultiBrowserBaseTest {
 
         for (int i = 1; i <= categoriesCount; i++) {
 
-            //need to understand that the page is updated
-            WebElement logo = adminApp.getSidebarMenu().getLogotype();
+            //need to wait until page is updated
+            WebElement oldLogo = adminApp.getSidebarMenu().getLogotype();
 
-            SelenideElement category = adminApp.getSidebarMenu().getCategory(i);
-            category.click();
-            wait.until(ExpectedConditions.stalenessOf(logo));
+            adminApp.getSidebarMenu().getCategory(i).click();
+            assertPageHeaderExists(oldLogo);
 
-            assertPageHeaderExists();
+            WebElement category = adminApp.getSidebarMenu().getCategory(i);
+            for (int j = 1; j < (adminApp.getSidebarMenu().getSubcategories(category).size() + 1); j++) {
 
-            category = adminApp.getSidebarMenu().getCategory(i);
-            for (int j = 1; j < adminApp.getSidebarMenu().getSubcategories(category).size() + 1; j++) {
+                //need to wait until page is updated
+                oldLogo = adminApp.getSidebarMenu().getLogotype();
 
-                //need to understand that the page is updated
-                logo = adminApp.getSidebarMenu().getLogotype();
+                adminApp.getSidebarMenu().getSubCategory(category, j).click();
+                assertPageHeaderExists(oldLogo);
 
-                adminApp.getSidebarMenu().getSubCategory(category,j).click();
-                wait.until(ExpectedConditions.stalenessOf(logo));
-
-                assertPageHeaderExists();
                 category = adminApp.getSidebarMenu().getCategory(i);
             }
         }
     }
 
-    private void assertPageHeaderExists() {
-        assertTrue(driver.findElements(By.cssSelector("td#content > h1")).size() > 0);
+    private void assertPageHeaderExists(WebElement oldLogo) {
+        wait.until(ExpectedConditions.stalenessOf(oldLogo));
+        assertTrue(adminApp.getSidebarMenu().getPageHeaders().size() > 0);
     }
-
 }

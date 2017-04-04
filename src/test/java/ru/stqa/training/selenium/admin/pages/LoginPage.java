@@ -16,7 +16,7 @@ public class LoginPage extends Page {
 
     public LoginPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
 
     @FindBy(name = "username")
@@ -32,7 +32,7 @@ public class LoginPage extends Page {
         driver.get(adminUrl);
     }
 
-    public void clickLoginAndWait(){
+    public void clickLoginAndWait() {
         loginButton.click();
         wait.until(urlToBe(adminUrl));
     }

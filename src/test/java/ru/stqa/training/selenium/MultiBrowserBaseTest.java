@@ -61,7 +61,7 @@ abstract public class MultiBrowserBaseTest {
         setWebDriver(driver);
         wait = new WebDriverWait(driver, 10);
         clientApp = new ClientApplication(driver);
-        adminApp = new AdminApplication(driver);
+        adminApp = new AdminApplication(driver, wait);
     }
 
     @After

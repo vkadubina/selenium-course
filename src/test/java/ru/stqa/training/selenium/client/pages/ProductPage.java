@@ -20,14 +20,14 @@ public class ProductPage extends Page {
 
     public ProductPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
         cartMenu = new CartMenu(driver);
     }
 
     @FindBy(css = "button[name=add_cart_product]")
     WebElement addToCartButton;
 
-    public void addSelectedProductToCart(){
+    public void addSelectedProductToCart() {
         int qtyOfProductsInCart = cartMenu.getQtyOfItemsInCart();
         String expectedQty = Integer.toString(++qtyOfProductsInCart);
         addToCartButton.click();
@@ -45,7 +45,7 @@ public class ProductPage extends Page {
         }
     }
 
-    public List<String> getSizes(){
+    public List<String> getSizes() {
         WebElement buyNowForm = driver.findElement(By.cssSelector("form[name=buy_now_form]"));
         List<WebElement> sizeSelectOptions = buyNowForm.findElements(By.cssSelector("select[name=options\\[Size\\]] > option"));
         List<String> sizes = sizeSelectOptions.stream()
@@ -55,11 +55,11 @@ public class ProductPage extends Page {
         return sizes;
     }
 
-    public boolean isOnThisPage(){
-        return driver.findElements(By.id("box-product")).size()>0;
+    public boolean isOnThisPage() {
+        return driver.findElements(By.id("box-product")).size() > 0;
     }
 
-    public WebElement getProduct(){
+    public WebElement getProduct() {
         return driver.findElement((By.cssSelector("div#box-product")));
     }
 }

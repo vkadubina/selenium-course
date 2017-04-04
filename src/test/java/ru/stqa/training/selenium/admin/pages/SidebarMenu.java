@@ -1,6 +1,5 @@
 package ru.stqa.training.selenium.admin.pages;
 
-import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,38 +9,45 @@ import ru.stqa.training.selenium.Page;
 
 import java.util.List;
 
-import static com.codeborne.selenide.Selenide.$;
-
 /**
  * @author Victoria Kadubina
  */
 public class SidebarMenu extends Page {
     public SidebarMenu(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
 
     @FindBy(css = "ul#box-apps-menu > li")
     private List<WebElement> categories;
 
-    public List<WebElement> getCategories(){
+    public List<WebElement> getCategories() {
         return categories;
     }
 
-    public WebElement getLogotype(){
-        return $("div.logotype");
+    public WebElement getLogotype() {
+        return driver.findElement(By.cssSelector("div.logotype"));
     }
 
-    public SelenideElement getCategory(int i){
-        return $("ul#box-apps-menu > li:nth-child(" + i + ")");
+    public WebElement getCategory(int i) {
+        return driver.findElement(By.cssSelector("ul#box-apps-menu > li:nth-child(" + i + ")"));
     }
 
-    public SelenideElement getSubCategory(SelenideElement category, int i){
-        return category.find(" li:nth-child(" + i + ")");
+    public WebElement getSubCategory(WebElement category, int i) {
+        return category.findElement(By.cssSelector(" li:nth-child(" + i + ")"));
     }
 
-    public List<WebElement> getSubcategories(WebElement category){
+    public List<WebElement> getSubcategories(WebElement category) {
         return category.findElements(By.cssSelector(" li"));
+    }
+
+    public List<WebElement> getPageHeaders() {
+        return driver.findElements(By.cssSelector("td#content > h1"));
+    }
+
+    public WebElement getCategoryByName(String name) {
+        String xpath = "//span[.='" + name + "']/..";
+        return driver.findElement(By.xpath(xpath));
     }
 
 }

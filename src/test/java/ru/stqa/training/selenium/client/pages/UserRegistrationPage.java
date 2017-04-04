@@ -23,7 +23,7 @@ public class UserRegistrationPage extends Page {
     @FindBy(name = "firstname")
     private WebElement firstnameInput;
 
-    public UserRegistrationPage inputFirstName(String name){
+    public UserRegistrationPage inputFirstName(String name) {
         firstnameInput.sendKeys(name);
         return this;
     }
@@ -31,7 +31,7 @@ public class UserRegistrationPage extends Page {
     @FindBy(name = "lastname")
     private WebElement lastnameInput;
 
-    public UserRegistrationPage inputLastName(String name){
+    public UserRegistrationPage inputLastName(String name) {
         lastnameInput.sendKeys(name);
         return this;
     }
@@ -39,7 +39,7 @@ public class UserRegistrationPage extends Page {
     @FindBy(name = "address1")
     private WebElement adress1Input;
 
-    public UserRegistrationPage inputAdress1(String adress){
+    public UserRegistrationPage inputAdress1(String adress) {
         adress1Input.sendKeys(adress);
         return this;
     }
@@ -47,7 +47,7 @@ public class UserRegistrationPage extends Page {
     @FindBy(name = "postcode")
     private WebElement postcodeInput;
 
-    public UserRegistrationPage inputPostcode(String postcode){
+    public UserRegistrationPage inputPostcode(String postcode) {
         postcodeInput.sendKeys(postcode);
         return this;
     }
@@ -55,7 +55,7 @@ public class UserRegistrationPage extends Page {
     @FindBy(name = "city")
     private WebElement cityInput;
 
-    public UserRegistrationPage inputCity(String city){
+    public UserRegistrationPage inputCity(String city) {
         cityInput.sendKeys(city);
         return this;
     }
@@ -63,7 +63,7 @@ public class UserRegistrationPage extends Page {
     @FindBy(name = "email")
     private WebElement emailInput;
 
-    public UserRegistrationPage inputEmail(String email){
+    public UserRegistrationPage inputEmail(String email) {
         emailInput.sendKeys(email);
         return this;
     }
@@ -71,7 +71,7 @@ public class UserRegistrationPage extends Page {
     @FindBy(name = "phone")
     private WebElement phoneInput;
 
-    public UserRegistrationPage inputPhone(String phone){
+    public UserRegistrationPage inputPhone(String phone) {
         phoneInput.sendKeys(phone);
         return this;
     }
@@ -79,7 +79,7 @@ public class UserRegistrationPage extends Page {
     @FindBy(name = "password")
     private WebElement passwordInput;
 
-    public UserRegistrationPage inputPassword(String password){
+    public UserRegistrationPage inputPassword(String password) {
         passwordInput.sendKeys(password);
         return this;
     }
@@ -87,7 +87,7 @@ public class UserRegistrationPage extends Page {
     @FindBy(name = "confirmed_password")
     private WebElement confirmedPasswordInput;
 
-    public UserRegistrationPage inputConfirmedPassword(String confirmedPassword){
+    public UserRegistrationPage inputConfirmedPassword(String confirmedPassword) {
         confirmedPasswordInput.sendKeys(confirmedPassword);
         return this;
     }
@@ -95,31 +95,31 @@ public class UserRegistrationPage extends Page {
     @FindBy(name = "create_account")
     private WebElement createAccountButton;
 
-    public void clickCreateAccountButton(){
+    public void clickCreateAccountButton() {
         createAccountButton.click();
         wait.until(visibilityOfElementLocated(By.cssSelector("div#notices-wrapper div.notice.success")));
     }
 
 
-    public UserRegistrationPage selectCountry(String country){
+    public UserRegistrationPage selectCountry(String country) {
         Select selectCountry = new Select(driver.findElement(By.cssSelector("select[name=country_code]")));
         selectCountry.selectByVisibleText(country);
         return this;
     }
 
-    public UserRegistrationPage selectZone(String zone){
-        if (zone != null){
-        Select selectZone = new Select(driver.findElement(By.cssSelector("select[name=zone_code]")));
-        selectZone.selectByVisibleText(zone);
+    public UserRegistrationPage selectZone(String zone) {
+        if (zone != null) {
+            Select selectZone = new Select(driver.findElement(By.cssSelector("select[name=zone_code]")));
+            selectZone.selectByVisibleText(zone);
         }
         return this;
     }
 
-    public boolean isOnThisPage(){
+    public boolean isOnThisPage() {
         return driver.getCurrentUrl().contains("create_account");
     }
 
-    public void open(){
+    public void open() {
         driver.get(clientUrl + "create_account");
     }
 }

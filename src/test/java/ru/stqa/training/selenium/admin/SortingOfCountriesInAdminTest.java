@@ -8,8 +8,6 @@ import ru.stqa.training.selenium.SeleniumBrowser;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
-import static ru.stqa.training.selenium.admin.AdminPageHelper.*;
-import static ru.stqa.training.selenium.admin.AdminPageHelper.openAdminSection;
 
 /**
  * @author Victoria Kadubina
@@ -24,15 +22,14 @@ public class SortingOfCountriesInAdminTest extends MultiBrowserBaseTest {
     @Test
     public void isAllCountriesSorted() {
         adminApp.login();
-        openAdminSection(driver,wait,"Countries");
+        adminApp.openAdminSection("Countries");
 
-        int countriesCount = driver.findElements(By.cssSelector("tr.row")).size();
+        int countriesCount = adminApp.getDataTable().getRows().size();
         String prevCountryName = "";
 
         for (int i = 0; i < countriesCount; i++) {
-            WebElement row = driver.findElement(By.cssSelector("table.dataTable tr:nth-child(" + (i + 2) + ")"));
-            WebElement country = row.findElement(By.cssSelector("td:nth-child(5)"));
-            String currentCountryName = country.getAttribute("innerText");
+            WebElement row = adminApp.getDataTable().getRow(i);
+            String currentCountryName = adminApp.getDataTable().getCell(row, 5).getAttribute("innerText");
 
             if (i != 0) {
                 assertTrue(currentCountryName.compareTo(prevCountryName) > 0);
@@ -43,20 +40,21 @@ public class SortingOfCountriesInAdminTest extends MultiBrowserBaseTest {
     }
 
     private void checkZones(WebElement row) {
-        WebElement country = row.findElement(By.cssSelector("td:nth-child(5)"));
-        int zonesCount = Integer.parseInt(row.findElement(By.cssSelector("td:nth-child(6)")).getAttribute("innerText"));
+        int zonesCount = Integer.parseInt(adminApp.getDataTable().getCell(row, 6).getAttribute("innerText"));
 
         if (zonesCount > 0) {
             String currentUrl = driver.getCurrentUrl();
             String countryURL = "http://localhost:8080/admin/?app=countries&doc=edit_country&country_code=" +
-                    row.findElement(By.cssSelector("td:nth-child(4)")).getAttribute("innerText");
-            country.findElement(By.cssSelector("a")).click();
+                    adminApp.getDataTable().getCell(row, 4).getAttribute("innerText");
+
+            adminApp.getDataTable().getCell(row, 5).findElement(By.cssSelector("a")).click();
             wait.until(urlToBe(countryURL));
 
             String prevZone = "";
 
             for (int j = 0; j < zonesCount; j++) {
-                String currentZone = driver.findElement(By.cssSelector("table#table-zones tr:nth-child(" + (j + 2) + ") td:nth-child(3)" ))
+
+                String currentZone = adminApp.getDataTable().getCell("table#table-zones", (j + 1), 3)
                         .getAttribute("textContent");
                 if (j != 0) {
                     assertTrue(currentZone.compareTo(prevZone) > 0);

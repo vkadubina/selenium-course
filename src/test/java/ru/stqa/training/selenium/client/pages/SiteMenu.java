@@ -16,7 +16,7 @@ public class SiteMenu extends Page {
 
     public SiteMenu(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
         mainPage = new MainPage(driver);
     }
 

@@ -3,6 +3,7 @@ package ru.stqa.training.selenium;
 import org.junit.Test;
 
 import java.util.function.Function;
+
 import static junit.framework.TestCase.*;
 
 /**

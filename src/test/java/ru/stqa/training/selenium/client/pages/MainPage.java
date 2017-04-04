@@ -21,7 +21,7 @@ public class MainPage extends Page {
 
     public MainPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
         cartMenu = new CartMenu(driver);
         navigationPage = new NavigationMenu(driver);
     }
@@ -39,7 +39,7 @@ public class MainPage extends Page {
         return notice;
     }
 
-    public void clickOnProductLink(int i){
+    public void clickOnProductLink(int i) {
         if (i >= getAllProductsLinksList().size() || i < 0) throw new IllegalArgumentException("unexpected product id");
         getAllProductsLinksList().get(i).click();
         wait.until(visibilityOfElementLocated(By.cssSelector("button[name=add_cart_product]")));
@@ -53,31 +53,31 @@ public class MainPage extends Page {
         return navigationPage;
     }
 
-    public void open(){
+    public void open() {
         driver.get(clientUrl);
     }
 
-    public boolean isOnThisPage(){
+    public boolean isOnThisPage() {
         return driver.findElements(By.id("slider-wrapper")).size() > 0;
     }
 
-    public List<WebElement> getAllProductsLinksList(){
+    public List<WebElement> getAllProductsLinksList() {
         return allProductsLinksList;
     }
 
-    public List<WebElement> getAllProductGroups(){
+    public List<WebElement> getAllProductGroups() {
         return productGroups;
     }
 
-    public List<WebElement> getAllProductsInGroup(WebElement group){
+    public List<WebElement> getAllProductsInGroup(WebElement group) {
         return group.findElements(By.cssSelector("li.product"));
     }
 
-    public List<WebElement> getProductStickers(WebElement product){
+    public List<WebElement> getProductStickers(WebElement product) {
         return product.findElements(By.cssSelector("div.sticker"));
     }
 
-    public List<WebElement> getCampaignProducts(){
+    public List<WebElement> getCampaignProducts() {
         return driver.findElements(By.cssSelector("div#box-campaigns ul.products li"));
     }
 }

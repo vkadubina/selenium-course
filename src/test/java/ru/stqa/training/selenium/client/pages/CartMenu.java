@@ -15,7 +15,7 @@ public class CartMenu extends Page {
 
     public CartMenu(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
 
     @FindBy(css = "div#cart-wrapper a.link")
@@ -24,7 +24,7 @@ public class CartMenu extends Page {
     @FindBy(css = "div#cart span.quantity")
     WebElement qtyOfProductsInCartLabel;
 
-    public int getQtyOfItemsInCart(){
+    public int getQtyOfItemsInCart() {
         return Integer.parseInt(qtyOfProductsInCartLabel.getText().trim());
     }
 
